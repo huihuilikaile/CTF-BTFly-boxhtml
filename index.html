@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#080b12" />
+    <meta name="description" content="CTF-BTFly 是面向 CTF 研究与实战的本地多智能体工作台，提供 Windows AppContainer 沙箱、Super 多智能体协作、工具接入、审计与 Writeup 工作流。" />
+    <title>CTF-BTFly｜本地多智能体 CTF 工作台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="CTF-BTFly 首页">
+        <span class="brand-copy"><strong>CTF-BTFly</strong><small>Local Agent Workbench</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="主导航">
+        <a href="#new">新功能</a><a href="#modes">协作模式</a><a href="#tools">工具生态</a><a href="#themes">主题</a><a href="#security">安全</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" type="button" data-theme-toggle aria-label="切换网页明暗模式"><span class="theme-icon" aria-hidden="true">◐</span></button>
+        <a class="button button-small button-ghost header-cta" href="#start">快速开始</a>
+        <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span><span class="sr-only">打开导航</span></button>
+      </div>
+      <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="移动端导航">
+        <a href="#new">新功能</a><a href="#modes">协作模式</a><a href="#tools">工具生态</a><a href="#themes">主题</a><a href="#security">安全</a><a href="#start">快速开始</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero section" id="top">
+        <div class="hero-glow hero-glow-one" aria-hidden="true"></div><div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow"><span class="live-dot"></span> 为 Windows 本地工作流打造</div>
+            <h1>让多模型安全协作，<br /><span>从题面走到 Flag 与 Writeup</span></h1>
+            <p class="hero-lead">CTF-BTFly 把模型编排、终端、工具、证据与人工复核收进一张工作台。每个任务独立隔离，复杂题目也能保持过程可见、边界明确、结果可追溯。</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#tour">查看产品界面 <span aria-hidden="true">↗</span></a>
+              <a class="button button-ghost" href="themes/index.html">体验 15 套主题 <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="trust-row" aria-label="核心特性"><span><i>✓</i> Windows AppContainer</span><span><i>✓</i> Local-first</span><span><i>✓</i> Human-in-the-loop</span></div>
+          </div>
+          <div class="hero-visual reveal" data-delay="1">
+            <div class="visual-orbit orbit-one" aria-hidden="true"></div><div class="visual-orbit orbit-two" aria-hidden="true"></div>
+            <button class="screenshot-frame hero-shot" type="button" data-lightbox-src="assets/workbench-signal.png" aria-label="放大查看 Signal Blue 主题工作台">
+              <span class="window-bar"><i></i><i></i><i></i><b>CTF-BTFly / Workspace</b></span>
+              <img src="assets/workbench-signal.png" alt="Signal Blue 主题下的 CTF-BTFly 工作台，使用虚拟演示数据" width="1440" height="900" />
+            </button>
+            <div class="floating-card floating-card-top"><span class="float-icon">⌁</span><div><strong>任务沙箱已就绪</strong><small>AppContainer · quota on</small></div></div>
+            <div class="floating-card floating-card-bottom"><span class="float-icon float-purple">✦</span><div><strong>Super Mode</strong><small>按需调度专家模型</small></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-strip" aria-label="产品能力概览"><div class="container stats-grid">
+        <div><strong>4</strong><span>种协作模式</span></div><div><strong>3</strong><span>层工具接入</span></div><div><strong>15+</strong><span>套内置主题</span></div>
+      </div></section>
+
+      <section class="section" id="new">
+        <div class="container">
+          <div class="section-heading reveal"><div><span class="kicker">WHAT'S NEW</span><h2>新能力，不只是新按钮</h2></div><p>这轮更新把可靠性、安全边界、工具扩展与视觉体验一起向前推进。</p></div>
+          <div class="bento-grid">
+            <article class="feature-card feature-card-large accent-blue reveal"><span class="card-number">01</span><span class="card-icon">⛨</span><h3>AppContainer 崩溃恢复</h3><p>Windows 原生隔离环境出现异常后，任务状态可被识别与恢复，避免静默丢失执行上下文。</p><div class="mini-flow"><span>Detect</span><i>→</i><span>Rebuild</span><i>→</i><span>Resume</span></div></article>
+            <article class="feature-card accent-mint reveal" data-delay="1"><span class="card-number">02</span><span class="card-icon">◫</span><h3>任务级磁盘与事件配额</h3><p>资源边界落到具体任务，限制磁盘占用与事件增长，防止单个任务拖累整个工作台。</p><div class="quota-bars"><i style="--value:58%"></i><i style="--value:35%"></i></div></article>
+            <article class="feature-card accent-purple reveal" data-delay="2"><span class="card-number">03</span><span class="card-icon">⌘</span><h3>MCP 实例级授权绑定</h3><p>授权从“能否使用 MCP”细化为“任务可以连接哪一个服务器实例”，降低凭据串用风险。</p><div class="binding-chip"><span>Task A</span><i>↔</i><span>MCP #02</span></div></article>
+            <article class="feature-card accent-blue reveal"><span class="card-number">04</span><span class="card-icon">✦</span><h3>超级模式调度硬边界</h3><p>协调器专注规划与派发，专家 Worker 按需启动；候选结果和 Writeup 阶段独立追踪。</p><div class="binding-chip"><span>Planner</span><i>→</i><span>Workers</span></div></article>
+            <article class="feature-card accent-cyan reveal" data-delay="1"><span class="card-number">05</span><span class="card-icon">›_</span><h3>EXE / Python 工具模板</h3><p>主机工具新增可复制示例，参数、工作目录与执行策略一目了然。</p><code>python tools/solver.py &#123;&#123;input&#125;&#125;</code></article>
+            <article class="feature-card feature-card-large accent-cyan reveal" data-delay="2"><span class="card-number">06</span><span class="card-icon">◒</span><h3>15 套主题与自定义渐变</h3><p>从黑色极简、乳白工作室到青春亮色与渐变主题。背景网格保持克制，渐变集中用于按钮、进度与强调状态。</p><div class="palette-line"><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section architecture-section">
+        <div class="container architecture-grid">
+          <div class="architecture-copy reveal"><span class="kicker">LOCAL-FIRST ARCHITECTURE</span><h2>本地运行，边界清晰</h2><p>桌面界面、守护进程、沙箱代理和智能体运行时各司其职。工具和模型可以扩展，任务边界不会因此变得模糊。</p>
+            <ul class="check-list"><li><span>✓</span>敏感工作区留在本机</li><li><span>✓</span>每个任务独立安全主体与资源限制</li><li><span>✓</span>关键结果进入人工复核与审计链路</li></ul>
+          </div>
+          <div class="architecture-map reveal" data-delay="1" aria-label="CTF-BTFly 本地架构示意图">
+            <div class="arch-node node-ui"><small>DESKTOP</small><strong>Wails + React UI</strong><span>工作台 · 终端 · 审阅</span></div><div class="arch-arrow">↓</div>
+            <div class="arch-node node-daemon"><small>CONTROL PLANE</small><strong>Go Daemon</strong><span>任务 · 配额 · 审计 · 恢复</span></div>
+            <div class="arch-split"><i></i><i></i><i></i></div>
+            <div class="arch-bottom"><div class="arch-node"><small>DATA</small><strong>SQLite</strong><span>本地状态</span></div><div class="arch-node node-sandbox"><small>ISOLATION</small><strong>AppContainer</strong><span>Broker · Job · ACL</span></div><div class="arch-node"><small>EXTEND</small><strong>Tool Hub</strong><span>Pack · MCP · Host</span></div></div>
+            <div class="arch-agent"><span>Pi Agents</span><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="modes">
+        <div class="container">
+          <div class="section-heading reveal"><div><span class="kicker">COLLABORATION MODES</span><h2>按题目复杂度组织协作</h2></div><p>从单模型快速分析，到协调器按需派发专家，每一种模式都保留人的最终判断。</p></div>
+          <div class="mode-grid">
+            <article class="mode-card reveal"><span class="mode-index">01</span><div class="mode-glyph">›_</div><h3>标准模式</h3><p>单任务、单主线，适合快速分析、验证思路和工具调用。</p><span class="mode-tag">FOCUSED</span></article>
+            <article class="mode-card reveal" data-delay="1"><span class="mode-index">02</span><div class="mode-glyph">▦</div><h3>黑板模式</h3><p>多个智能体共享发现、证据与假设，减少重复探索。</p><span class="mode-tag">SHARED CONTEXT</span></article>
+            <article class="mode-card mode-card-highlight reveal" data-delay="2"><span class="popular">推荐</span><span class="mode-index">03</span><div class="mode-glyph">✦</div><h3>超级模式</h3><p>协调器只做规划和调度，按需派发专家 Worker，聚合候选 Flag 与 Writeup。</p><span class="mode-tag">ORCHESTRATED</span></article>
+            <article class="mode-card reveal" data-delay="3"><span class="mode-index">04</span><div class="mode-glyph">≋</div><h3>多问模式</h3><p>为一道题中的多个子问题分别追踪答案、状态与证据。</p><span class="mode-tag">MULTI ANSWER</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section tools-section" id="tools">
+        <div class="container">
+          <div class="section-heading reveal"><div><span class="kicker">TOOL ECOSYSTEM</span><h2>工具不缺位，也不过度放权</h2></div><p>三层工具接入覆盖 CTF 常用方向；每一层都能设置明确的可见性、授权和运行边界。</p></div>
+          <div class="tool-layout">
+            <div class="tool-layers reveal">
+              <article><span>01</span><div><h3>Tool Pack</h3><p>固定版本、只读挂载、随任务进入隔离环境。</p></div><b>Sandbox</b></article>
+              <article><span>02</span><div><h3>MCP Server</h3><p>连接外部能力，并绑定到具体任务与服务器实例。</p></div><b>Bound</b></article>
+              <article><span>03</span><div><h3>Host Tool</h3><p>受控调用本机 EXE / Python，支持固定参数模板与审批。</p></div><b>Approved</b></article>
+            </div>
+            <div class="tool-matrix reveal" data-delay="1">
+              <div class="matrix-head"><span>方向</span><span>代表能力</span><span>状态</span></div>
+              <div><strong>WEB</strong><span>HTTP · Proxy · Scanner · Browser</span><i>READY</i></div><div><strong>PWN</strong><span>Debugger · ROP · Exploit runtime</span><i>READY</i></div><div><strong>REVERSE</strong><span>Disassembler · Decompiler · Symbols</span><i>READY</i></div><div><strong>CRYPTO</strong><span>Math · Solver · Script runtime</span><i>READY</i></div><div><strong>FORENSICS</strong><span>Metadata · Memory · Filesystem</span><i>READY</i></div><div><strong>MISC</strong><span>Archive · Encoding · Custom tools</span><i>EXTEND</i></div>
+            </div>
+          </div>
+          <div class="settings-showcase reveal" id="tour">
+            <div class="showcase-copy"><span class="kicker">TOOL SETTINGS</span><h3>从示例开始，几分钟接入自己的工具</h3><p>新的设置页使用分组导航与单一内容滚动区。EXE、Python 命令、工作目录、固定参数和执行策略集中管理。</p><button class="text-link" type="button" data-lightbox-src="assets/settings-tools-blue.png">查看大图 <span>↗</span></button></div>
+            <button class="screenshot-frame settings-shot" type="button" data-lightbox-src="assets/settings-tools-blue.png" aria-label="放大查看 Signal Blue 工具设置页面"><span class="window-bar"><i></i><i></i><i></i><b>Settings / Tools</b></span><img src="assets/settings-tools-blue.png" alt="Signal Blue 主题下的 CTF-BTFly 工具设置页面，内容为虚拟演示数据" width="1440" height="900" loading="lazy" /></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section theme-section" id="themes">
+        <div class="container">
+          <div class="theme-heading reveal"><div><span class="kicker">MAKE IT YOURS</span><h2>严肃工作台，也可以有自己的颜色</h2><p>15 套预设覆盖深色、浅色、活力亮色和双彩渐变；还可自定义两种强调色。</p></div><a class="button button-ghost" href="themes/index.html">打开完整主题展厅 <span>→</span></a></div>
+          <div class="theme-gallery">
+            <button class="theme-preview theme-preview-large reveal" type="button" data-lightbox-src="assets/workbench-signal.png"><img src="assets/workbench-signal.png" alt="Signal Blue 专业蓝色主题预览" width="1440" height="900" loading="lazy" /><span><strong>Signal Blue</strong><small>专业蓝色 · 默认</small></span></button>
+            <button class="theme-preview reveal" data-delay="1" type="button" data-lightbox-src="assets/theme-obsidian.png"><img src="assets/theme-obsidian.png" alt="Obsidian Mono 黑色极简主题预览" width="1440" height="900" loading="lazy" /><span><strong>Obsidian Mono</strong><small>黑色极简</small></span></button>
+            <button class="theme-preview reveal" data-delay="2" type="button" data-lightbox-src="assets/theme-citrus.png"><img src="assets/theme-citrus.png" alt="Citrus Sky 青春亮色主题预览" width="1440" height="900" loading="lazy" /><span><strong>Citrus Sky</strong><small>亮色青春</small></span></button>
+            <button class="theme-preview reveal" data-delay="1" type="button" data-lightbox-src="assets/theme-pearl.png"><img src="assets/theme-pearl.png" alt="Pearl Glow 乳白渐变主题预览" width="1440" height="900" loading="lazy" /><span><strong>Pearl Glow</strong><small>乳白渐变</small></span></button>
+            <a class="theme-more reveal" data-delay="2" href="themes/index.html"><span class="theme-orbs"><i></i><i></i><i></i><i></i></span><strong>还有 11 套主题</strong><small>浏览全部配色与交互预览</small><b>探索主题展厅 →</b></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section security-section" id="security">
+        <div class="container">
+          <div class="security-intro reveal"><span class="kicker">DEFENSE IN DEPTH</span><h2>把安全做成工作流，而不是提示语</h2><p>CTF 工具天然高权限、高风险。CTF-BTFly 用多层边界控制运行环境，同时保留操作痕迹和人工确认点。</p></div>
+          <div class="security-grid">
+            <article class="reveal"><span>01</span><div class="security-icon">⬡</div><h3>原生任务隔离</h3><p>AppContainer、Job Object、ACL 与命名管道共同限制任务可见范围和进程资源。</p></article>
+            <article class="reveal" data-delay="1"><span>02</span><div class="security-icon">◫</div><h3>资源配额</h3><p>磁盘和事件额度按任务计算，异常增长不会扩散到其他工作区。</p></article>
+            <article class="reveal" data-delay="2"><span>03</span><div class="security-icon">⌁</div><h3>实例级授权</h3><p>MCP 权限绑定到任务与服务器实例；主机工具需明确批准后才能运行。</p></article>
+            <article class="reveal" data-delay="3"><span>04</span><div class="security-icon">◎</div><h3>审计与人工复核</h3><p>候选 Flag、工具事件和 Writeup 阶段可追踪，最终结果由人确认。</p></article>
+          </div>
+          <div class="security-note reveal"><strong>Responsible use</strong><p>仅在获得授权的环境中使用安全测试和分析能力。工具能力越强，边界越应明确。</p></div>
+        </div>
+      </section>
+
+      <section class="section final-section" id="start"><div class="container final-card reveal"><div class="final-glow" aria-hidden="true"></div><span class="kicker">READY FOR THE NEXT CHALLENGE?</span><h2>把重复操作交给工具，<br />把关键判断留给你。</h2><p>在本机组织智能体、终端、工具与证据，让复杂 CTF 任务重新变得清晰。</p><div class="hero-actions"><a class="button button-primary" href="#tour">浏览产品界面 <span>↗</span></a><a class="button button-ghost" href="themes/index.html">选择你的主题 <span>→</span></a></div><div class="final-meta"><span>Windows Desktop</span><i></i><span>Local-first</span><i></i><span>Static preview included</span></div></div></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid"><a class="brand" href="#top"><span class="brand-mark"><img src="assets/cpi-icon.png" alt="" /></span><span class="brand-copy"><strong>CTF-BTFly</strong><small>Local Agent Workbench</small></span></a><p>面向授权安全研究与 CTF 实战的本地多智能体工作台。</p><div class="footer-links"><a href="#new">功能</a><a href="#tools">工具</a><a href="#themes">主题</a><a href="#security">安全</a></div></div>
+      <div class="container footer-bottom"><span>© 2026 CTF-BTFly</span><span>Built for authorized security research.</span></div>
+    </footer>
+
+    <dialog class="lightbox" data-lightbox><button type="button" data-lightbox-close aria-label="关闭图片预览">×</button><img src="" alt="产品界面大图预览" /><p>演示数据 · 不含真实任务或凭据信息</p></dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
