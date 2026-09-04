@@ -1,72 +1,67 @@
 (() => {
-  const root = document.documentElement;
   const header = document.querySelector("[data-header]");
   const menuButton = document.querySelector("[data-menu-button]");
   const mobileNav = document.querySelector("[data-mobile-nav]");
-  const themeToggle = document.querySelector("[data-theme-toggle]");
   const lightbox = document.querySelector("[data-lightbox]");
   const lightboxImage = lightbox?.querySelector("img");
+  const closeButton = lightbox?.querySelector("[data-lightbox-close]");
 
-  const storedTheme = (() => {
-    try { return localStorage.getItem("ctf-btfly-site-theme"); } catch { return null; }
-  })();
-  if (storedTheme === "light") root.dataset.siteTheme = "light";
+  const updateHeader = () => {
+    header?.classList.toggle("scrolled", window.scrollY > 18);
+  };
 
-  themeToggle?.addEventListener("click", () => {
-    const nextTheme = root.dataset.siteTheme === "light" ? "dark" : "light";
-    if (nextTheme === "light") root.dataset.siteTheme = "light";
-    else delete root.dataset.siteTheme;
-    try { localStorage.setItem("ctf-btfly-site-theme", nextTheme); } catch { /* Storage may be unavailable on local files. */ }
-  });
+  const closeMenu = () => {
+    menuButton?.setAttribute("aria-expanded", "false");
+    mobileNav?.classList.remove("open");
+    header?.classList.remove("menu-open");
+    document.body.classList.remove("menu-open");
+  };
 
-  const syncHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 18);
-  syncHeader();
-  window.addEventListener("scroll", syncHeader, { passive: true });
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
 
   menuButton?.addEventListener("click", () => {
-    const open = !mobileNav?.classList.contains("is-open");
-    mobileNav?.classList.toggle("is-open", open);
+    const open = menuButton.getAttribute("aria-expanded") !== "true";
     menuButton.setAttribute("aria-expanded", String(open));
+    mobileNav?.classList.toggle("open", open);
+    header?.classList.toggle("menu-open", open);
+    document.body.classList.toggle("menu-open", open);
   });
+
   mobileNav?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      mobileNav.classList.remove("is-open");
-      menuButton?.setAttribute("aria-expanded", "false");
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.querySelectorAll("[data-lightbox-src]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      if (!lightbox || !lightboxImage) return;
+      lightboxImage.src = trigger.dataset.lightboxSrc;
+      if (typeof lightbox.showModal === "function") {
+        lightbox.showModal();
+      } else {
+        lightbox.setAttribute("open", "");
+      }
     });
   });
 
-  const observer = "IntersectionObserver" in window
-    ? new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      }, { threshold: 0.12, rootMargin: "0px 0px -30px" })
-    : null;
-
-  document.querySelectorAll(".reveal").forEach((element) => {
-    if (observer) observer.observe(element);
-    else element.classList.add("is-visible");
-  });
-
-  const openLightbox = (source) => {
-    if (!lightbox || !lightboxImage || !source) return;
-    lightboxImage.src = source;
-    if (typeof lightbox.showModal === "function") lightbox.showModal();
+  const closeLightbox = () => {
+    if (!lightbox) return;
+    if (typeof lightbox.close === "function") {
+      lightbox.close();
+    } else {
+      lightbox.removeAttribute("open");
+    }
+    if (lightboxImage) lightboxImage.src = "";
   };
-  document.querySelectorAll("[data-lightbox-src]").forEach((trigger) => {
-    trigger.addEventListener("click", () => openLightbox(trigger.dataset.lightboxSrc));
-  });
-  lightbox?.querySelector("[data-lightbox-close]")?.addEventListener("click", () => lightbox.close());
+
+  closeButton?.addEventListener("click", closeLightbox);
   lightbox?.addEventListener("click", (event) => {
-    if (event.target === lightbox) lightbox.close();
+    if (event.target === lightbox) closeLightbox();
   });
 
-  // Re-apply deep links after images establish their layout dimensions.
-  window.addEventListener("load", () => {
-    if (!location.hash) return;
-    const target = document.querySelector(location.hash);
-    if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    closeMenu();
+    if (lightbox?.open) closeLightbox();
   });
 })();
