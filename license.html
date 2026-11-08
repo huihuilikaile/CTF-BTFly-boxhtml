@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#090d11" />
-  <meta name="description" content="CTF-BTFly 设备授权与激活教程：如何读取本机设备码、提交给授权联系人、导入 .ctflic 离线许可证，以及更换授权、删除授权与导入失败的排查对照。" />
+  <meta name="description" content="CTF-BTFly 授权与激活教程：购买后取得一次性开通码，用授权助手自助生成 30 天设备授权，导入 .ctflic 即可使用；到期自助续期，更换设备联系管理员。" />
   <title>授权与激活｜CTF-BTFly 2.9.5</title>
   <meta property="og:type" content="article" />
   <meta property="og:title" content="授权与激活｜CTF-BTFly 2.9.5" />
-  <meta property="og:description" content="离线设备绑定许可证：三步完成激活，导入无需重启，失败原因对照一次看清。" />
+  <meta property="og:description" content="一次性开通码 → 授权助手自助生成 30 天授权 → 导入软件，到期可自助续期。" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/cpi-icon.png" />
   <link rel="stylesheet" href="styles.css" />
@@ -28,37 +28,37 @@
       <div class="container">
         <p class="crumb"><a href="index.html">首页</a><span class="crumb-sep" aria-hidden="true">/</span><span>授权与激活</span></p>
         <h1>授权与激活</h1>
-        <p class="page-lead">CTF-BTFly 使用离线、设备绑定的签名许可证：程序不连接授权服务器，导入一份与本机设备码匹配的 <code>.ctflic</code> 文件即可进入工作台。本页只讲使用者需要做的三步，以及出错时怎么判断。</p>
+        <p class="page-lead">CTF-BTFly 使用设备绑定的离线许可证。购买后你会拿到一串<strong>一次性开通码</strong>，用它在授权助手中注册即可自助生成授权文件，把它导入软件就能进入工作台。单次授权 30 天，到期可以在助手内自助续期；更换设备需要联系管理员。</p>
         <div class="page-meta">
-          <span>离线校验，不联网验证</span>
-          <span>许可证与设备码绑定</span>
+          <span>一次性开通码注册</span>
+          <span>单次 30 天，到期自助续期</span>
           <span>导入后无需重启</span>
         </div>
       </div>
     </section>
 
-    <section class="doc-section" id="why">
+    <section class="doc-section" id="how">
       <div class="container">
         <div class="doc-head">
-          <p class="kicker">HOW IT WORKS</p>
-          <h2>为什么需要授权，它校验的是什么</h2>
-          <p>授权只解决一件事：确认这份软件运行在获得许可的那台机器上。它不上传你的数据，也不跟踪使用行为。</p>
+          <p class="kicker">HOW AUTHORIZATION WORKS</p>
+          <h2>授权是怎么来的</h2>
+          <p>授权不是人工逐个签发，而是「一次性开通码 + 授权助手自助生成」。理解这三件事，后面四步就不会走偏。</p>
         </div>
         <div class="card-grid">
           <article class="info-card">
-            <h3>离线签名，无需联网</h3>
-            <p>许可证是由授权方使用私钥签发的 JSON 文件，扩展名为 <code>.ctflic</code>。程序内置公钥做验签，因此校验过程完全离线。</p>
-            <span class="card-note">Ed25519 签名 · 本地验签</span>
+            <h3>开通码是一次性的</h3>
+            <p>在官方店铺购买「BTFly 授权」商品后自动发货，发货内容<strong>只有一串一次性开通码</strong>，不含下载链接；授权助手与软件本体的下载地址、图文说明在商品页的「使用说明」中。</p>
+            <span class="card-note">官方店铺 · 自动发货</span>
           </article>
           <article class="info-card">
-            <h3>设备绑定，不含硬件信息</h3>
-            <p>设备码由系统机器标识与系统盘卷序列号派生为 SHA-256 摘要，原始标识不会写入许可证，也不会显示在界面上。</p>
-            <span class="card-note">SHA-256 · 128 位显示标识</span>
+            <h3>授权助手自助生成</h3>
+            <p>用开通码在授权助手中注册，绑定本机设备码后即可导出 <code>.ctflic</code> 授权文件；单次授权有效期为 <strong>30 天</strong>。</p>
+            <span class="card-note">自助生成 · 设备绑定</span>
           </article>
           <article class="info-card">
-            <h3>改一个字节就失效</h3>
-            <p>许可证内容可读，但任何字段被修改都会导致签名校验失败；换到另一台机器则设备校验不通过。两者都由本地控制平面判定。</p>
-            <span class="card-note">签名 / 设备 / 产品 / 有效期</span>
+            <h3>续期自助，换机找人</h3>
+            <p>30 天到期后回到授权助手里手动续期，重新导出文件替换即可；<strong>更换设备属于设备变更</strong>，需要联系管理员处理，不要自行重复注册。</p>
+            <span class="card-note">续期自助 · 换机人工</span>
           </article>
         </div>
       </div>
@@ -67,28 +67,34 @@
     <section class="doc-section alt" id="steps">
       <div class="container">
         <div class="doc-head">
-          <p class="kicker">THREE STEPS</p>
-          <h2>三步完成激活</h2>
-          <p>未授权时工作台会停在「设备授权」页，只保留健康检查、授权状态、许可证导入与安全退出可用。下面三步全部在这一页完成。</p>
+          <p class="kicker">FOUR STEPS</p>
+          <h2>四步完成激活</h2>
+          <p>前两步准备开通码与设备码，第三步生成授权文件，第四步导入软件。未授权时工作台停在「设备授权」页，只保留健康检查、授权状态、许可证导入与安全退出可用。</p>
         </div>
         <div class="license-layout">
           <ol class="flow-steps">
             <li>
               <b>STEP 01</b>
-              <h3>读取本机设备码</h3>
-              <p>在锁定页找到「本机设备码」区块，点击「复制」。设备码形如 <code>BTF1-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XX</code>。</p>
-              <span class="step-hint">BTF1-XXXX-…-XX</span>
+              <h3>购买并取得开通码</h3>
+              <p>在官方店铺购买授权商品，自动发货后取得一次性开通码；按商品页「使用说明」下载授权助手与软件本体。购买入口可在下方授权联系渠道获取。</p>
+              <span class="step-hint">一次性开通码</span>
             </li>
             <li>
               <b>STEP 02</b>
-              <h3>提交给授权联系人</h3>
-              <p>把设备码发送到下方「授权联系」中的渠道，说明使用场景（比赛、靶场或研究）与需要的期限，等待授权方签发 <code>.ctflic</code> 文件。</p>
-              <span class="step-hint">QQ 群 921416626</span>
+              <h3>复制本机设备码</h3>
+              <p>打开软件，在锁定页找到「本机设备码」区块，点击「复制」。设备码形如 <code>BTF1-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XX</code>。</p>
+              <span class="step-hint">BTF1-XXXX-…-XX</span>
             </li>
             <li>
               <b>STEP 03</b>
-              <h3>导入离线授权文件</h3>
-              <p>回到锁定页的「导入离线授权文件」，点击「选择授权文件」并选中收到的文件。校验期间按钮显示「正在验证」，通过后立即进入主界面。</p>
+              <h3>在授权助手生成授权</h3>
+              <p>用开通码在授权助手中注册，绑定上一步复制的设备码，然后导出 <code>.ctflic</code> 授权文件。单次有效期 30 天。</p>
+              <span class="step-hint">导出 .ctflic</span>
+            </li>
+            <li>
+              <b>STEP 04</b>
+              <h3>导入软件</h3>
+              <p>回到锁定页的「导入离线授权文件」，点击「选择授权文件」并选中刚导出的文件。校验期间按钮显示「正在验证」，通过后立即进入主界面。</p>
               <span class="step-hint">无需重启</span>
             </li>
           </ol>
@@ -124,28 +130,58 @@
                 <span>重新检测</span>
               </div>
             </div>
-            <p class="card-note">上图为激活页界面示意，设备码已打码；实际文案以当前版本界面为准。</p>
+            <p class="card-note">上图为激活页界面示意，设备码已打码；实际按钮与文案以当前版本界面为准。</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="doc-section" id="manage">
+    <section class="doc-section" id="renew">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">RENEWAL</p>
+          <h2>30 天到期后怎么续</h2>
+          <p>短期授权到期不会丢失任何数据：任务、工作区、Writeup 都留在原处，只是软件回到授权锁定状态。续期是自助动作，不需要找人。</p>
+        </div>
+        <div class="card-grid">
+          <article class="info-card">
+            <h3>到期时会发生什么</h3>
+            <p>有效期校验不通过，软件回到「设备授权」页；任务、模型网关与 Agent 执行同时锁定。题目数据与工作区不受影响。</p>
+            <span class="card-note">仅锁定执行能力</span>
+          </article>
+          <article class="info-card">
+            <h3>续期的三个动作</h3>
+            <p>打开授权助手 → 在当前账号内手动续期 → 重新导出 <code>.ctflic</code>。续期后的文件同样绑定原设备码。</p>
+            <span class="card-note">助手内手动续期</span>
+          </article>
+          <article class="info-card">
+            <h3>换上新的授权文件</h3>
+            <p>进入「应用设置 → 设备授权」，点击「选择并更换授权文件」选中新文件。<strong>校验失败不会覆盖当前授权</strong>，可以放心试。</p>
+            <span class="card-note">先校验后替换</span>
+          </article>
+        </div>
+        <div class="callout">
+          <p><strong>别急着重新注册。</strong>续期请在原账号内完成；如果你已经换了电脑、重装了系统或更换了系统盘，设备码已经变化，这属于设备变更，请联系管理员而不是重复注册新账号。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section alt" id="manage">
       <div class="container">
         <div class="doc-head">
           <p class="kicker">AFTER ACTIVATION</p>
           <h2>已授权之后：查看、更换与删除</h2>
-          <p>激活后进入 <strong>应用设置 → 设备授权</strong>，可以核对当前实际加载的授权文件与签名元数据，而不必猜「是否已经生效」。</p>
+          <p>进入 <strong>应用设置 → 设备授权</strong>，可以核对当前实际加载的授权文件与签名元数据，而不必猜「是否已经生效」。</p>
         </div>
         <div class="table-wrap doc-table">
           <table>
             <thead><tr><th scope="col">字段</th><th scope="col">含义</th></tr></thead>
             <tbody>
               <tr><th scope="row">状态与客户</th><td>校验结果、客户名称与授权版本；校验失败时该区块显示失败原因</td></tr>
-              <tr><th scope="row">许可证 ID</th><td>授权方签发时写入的标识，便于核对与追溯</td></tr>
+              <tr><th scope="row">许可证 ID</th><td>签发时写入的标识，便于核对与追溯</td></tr>
               <tr><th scope="row">本机设备码</th><td>当前设备的设备码，与许可证绑定的值应当一致</td></tr>
-              <tr><th scope="row">签发时间</th><td>许可证的签发时刻</td></tr>
-              <tr><th scope="row">到期时间</th><td>许可证到期时刻；未设置期限时显示「永久有效」</td></tr>
+              <tr><th scope="row">签发时间</th><td>授权文件的生成时刻</td></tr>
+              <tr><th scope="row">到期时间</th><td>授权到期时刻，短期授权通常为生成后 30 天</td></tr>
               <tr><th scope="row">授权功能</th><td>签发时写入的功能标识，用于区分授权范围</td></tr>
               <tr><th scope="row">当前授权文件</th><td>实际加载的文件路径，可一键复制；也可展开查看原始文件内容</td></tr>
             </tbody>
@@ -154,12 +190,12 @@
         <div class="card-grid" style="margin-top: 26px;">
           <article class="info-card">
             <h3>更换授权文件</h3>
-            <p>点击「选择并更换授权文件」。新文件会先校验签名、设备与有效期，<strong>校验失败不会覆盖当前授权</strong>，可放心试。</p>
+            <p>「选择并更换授权文件」会先校验签名、设备与有效期，失败时保留原授权。续期后就用这个入口替换。</p>
             <span class="card-note">先校验后替换</span>
           </article>
           <article class="info-card">
             <h3>删除授权</h3>
-            <p>点击「删除授权」并二次确认后，应用立即回到激活页，任务、模型网关与 Agent 执行同时锁定。重新导入有效许可证即可恢复。</p>
+            <p>「删除授权」并二次确认后，应用立即回到激活页，任务、模型网关与 Agent 执行同时锁定。重新导入有效许可证即可恢复。</p>
             <span class="card-note">不可撤销 · 需重新导入</span>
           </article>
           <article class="info-card">
@@ -171,30 +207,30 @@
       </div>
     </section>
 
-    <section class="doc-section alt" id="reissue">
+    <section class="doc-section" id="reissue">
       <div class="container">
         <div class="doc-head">
-          <p class="kicker">WHEN TO REISSUE</p>
-          <h2>什么时候需要重新申请许可证</h2>
-          <p>设备码是设备身份与系统盘的摘要，因此下面这些操作会让设备码变化，旧许可证随即不再匹配——这是设计如此，不是「授权丢失」。</p>
+          <p class="kicker">WHEN TO ACT</p>
+          <h2>什么时候续期，什么时候找管理员</h2>
+          <p>判断依据只有一条：设备码有没有变。设备码没变就是续期，设备码变了就必须找管理员处理设备变更。</p>
         </div>
         <div class="table-wrap doc-table">
           <table>
             <thead><tr><th scope="col">情形</th><th scope="col">现象</th><th scope="col">处理</th></tr></thead>
             <tbody>
-              <tr><th scope="row">重装 Windows</th><td>设备码变化，提示设备不匹配</td><td>用新设备码重新申请许可证</td></tr>
-              <tr><th scope="row">克隆或更换系统盘</th><td>设备码变化，提示设备不匹配</td><td>用新设备码重新申请许可证</td></tr>
-              <tr><th scope="row">修改系统身份信息</th><td>设备码变化，提示设备不匹配</td><td>用新设备码重新申请许可证</td></tr>
-              <tr><th scope="row">许可证到期</th><td>提示有效期校验不通过</td><td>联系授权方续期或签发新许可证</td></tr>
-              <tr><th scope="row">使用了旧版本许可证</th><td>提示版本或产品不匹配</td><td>历史 Docker 版许可证不能用于当前 Windows 沙箱版，需按当前版本重新签发</td></tr>
-              <tr><th scope="row">换了另一台机器</th><td>设备不匹配</td><td>每份许可证只对签发时的设备码有效，换机需单独申请</td></tr>
+              <tr><th scope="row">30 天授权到期</th><td>提示有效期校验不通过，回到激活页</td><td>授权助手内手动续期，重新导出并更换文件</td></tr>
+              <tr><th scope="row">重装 Windows</th><td>设备码变化，提示设备不匹配</td><td>联系管理员处理设备变更</td></tr>
+              <tr><th scope="row">克隆或更换系统盘</th><td>设备码变化，提示设备不匹配</td><td>联系管理员处理设备变更</td></tr>
+              <tr><th scope="row">换到另一台电脑</th><td>设备不匹配</td><td>联系管理员处理设备变更，不要在助手内重复注册</td></tr>
+              <tr><th scope="row">使用了历史版本授权</th><td>提示版本或产品不匹配</td><td>历史 Docker 版许可证不能用于当前 Windows 沙箱版，需按当前版本重新生成</td></tr>
+              <tr><th scope="row">授权文件丢失</th><td>激活页提示缺少许可证</td><td>在授权助手内重新导出即可，无需重新购买</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <section class="doc-section" id="troubleshoot">
+    <section class="doc-section alt" id="troubleshoot">
       <div class="container">
         <div class="doc-head">
           <p class="kicker">IMPORT ERRORS</p>
@@ -206,49 +242,49 @@
             <thead><tr><th scope="col">界面提示</th><th scope="col">成因</th><th scope="col">处理</th></tr></thead>
             <tbody>
               <tr><th scope="row">请选择 .ctflic 授权文件。</th><td>文件扩展名不是 <code>.ctflic</code>，例如被聊天工具改成了 <code>.txt</code></td><td>确认扩展名后重新选择；不要用压缩包内的预览文件</td></tr>
-              <tr><th scope="row">授权文件必须为不超过 64 KiB 的非空文件。</th><td>文件为 0 字节，或被套上了额外内容</td><td>让授权方重新发送原始 <code>.ctflic</code>，不要编辑或另存</td></tr>
-              <tr><th scope="row">验签失败 / 签名无效</th><td>文件被修改过，或不是授权方签发的文件</td><td>重新获取原始文件；任何字段修改都会导致验签失败</td></tr>
-              <tr><th scope="row">当前授权文件绑定了另一台设备，请使用下方设备码重新申请。</th><td>许可证绑定的设备码与本机不一致</td><td>复制本页设备码重新申请；重装系统或换盘后尤其常见</td></tr>
-              <tr><th scope="row">产品 / 版本不匹配</th><td>用了历史 Docker 版或其他版本的许可证</td><td>按当前 Windows 沙箱版重新签发</td></tr>
-              <tr><th scope="row">许可证已过期</th><td>到期时间早于当前时间</td><td>联系授权方续期，或改用长期许可证</td></tr>
+              <tr><th scope="row">授权文件必须为不超过 64 KiB 的非空文件。</th><td>文件为 0 字节，或被套上了额外内容</td><td>从授权助手重新导出原始文件，不要编辑或另存</td></tr>
+              <tr><th scope="row">验签失败 / 签名无效</th><td>文件被修改过，或不是授权助手导出的文件</td><td>重新导出；任何字段修改都会导致验签失败</td></tr>
+              <tr><th scope="row">当前授权文件绑定了另一台设备，请使用下方设备码重新申请。</th><td>许可证绑定的设备码与本机不一致</td><td>确认本页设备码与生成时填写的设备码一致；若已换机或重装系统，联系管理员</td></tr>
+              <tr><th scope="row">产品 / 版本不匹配</th><td>用了历史 Docker 版或其他版本的许可证</td><td>按当前 Windows 沙箱版重新生成</td></tr>
+              <tr><th scope="row">许可证已过期</th><td>授权到期时间早于当前时间（短期授权为 30 天）</td><td>在授权助手内续期，重新导出并更换文件</td></tr>
               <tr><th scope="row">无法访问剪贴板，请手动选择并复制设备码。</th><td>浏览器或系统拦截了剪贴板写入</td><td>手动选中设备码文本复制，效果相同</td></tr>
             </tbody>
           </table>
         </div>
         <div class="callout">
-          <p><strong>先确认一件事：</strong>许可证是否真的没生效。打开「应用设置 → 设备授权」看「当前授权文件」路径与到期时间，比反复重试导入更快定位问题。</p>
-          <p>仍未解决时，把设备码、许可证 ID 与界面提示原文一起发到授权联系渠道，不要发送许可证文件本身。</p>
+          <p><strong>先确认一件事：</strong>授权是否真的没生效。打开「应用设置 → 设备授权」看「当前授权文件」路径与到期时间，比反复重试导入更快定位问题。</p>
+          <p>仍未解决时，把设备码、许可证 ID 与界面提示原文一起发到授权联系渠道，不要发送授权文件本身。</p>
         </div>
       </div>
     </section>
 
-    <section class="doc-section alt" id="boundary">
+    <section class="doc-section" id="boundary">
       <div class="container">
         <div class="doc-head">
           <p class="kicker">BOUNDARY</p>
           <h2>授权边界</h2>
-          <p>把边界说清楚，比事后解释省事。以下四点是使用许可证时的硬约束。</p>
+          <p>把边界说清楚，比事后解释省事。以下是使用开通码与授权文件时的硬约束。</p>
         </div>
         <div class="card-grid">
           <article class="info-card">
-            <h3>签发由授权方完成</h3>
-            <p>许可证必须由持有私钥的授权方离线签发。站点不提供、也不分发任何签发工具，因此不存在「自己生成一个许可证」的路径。</p>
+            <h3>开通码一次性，仅本人使用</h3>
+            <p>开通码用于注册授权账号，用过即失效，不随软件分发。请勿转让、公开或多人共用同一账号。</p>
           </article>
           <article class="info-card">
-            <h3>一份许可证对应一个设备码</h3>
-            <p>许可证与签发时的设备码严格绑定，复制到其他机器无法通过校验。因此设备数量需要按实际使用单独申请。</p>
+            <h3>授权与设备码绑定</h3>
+            <p>授权文件与生成时填写的设备码严格绑定，复制到其他机器无法通过校验。换机需要联系管理员处理设备变更。</p>
           </article>
           <article class="info-card">
-            <h3>不要公开许可证与设备码</h3>
-            <p>许可证本身不含密钥，但仍属于个人授权凭证。对外反馈问题时提供许可证 ID 即可，不要贴出完整文件或设备码。</p>
+            <h3>不要公开授权文件与设备码</h3>
+            <p>授权文件不含私钥，但仍属于个人授权凭证。对外反馈问题时提供许可证 ID 即可，不要贴出完整文件或设备码。</p>
           </article>
           <article class="info-card">
             <h3>仅限授权范围使用</h3>
-            <p>适用于获得明确授权的 CTF、靶场与安全研究。请勿扫描、攻击或导入未获授权的目标，详见 <a href="faq.html">常见问题</a> 中的数据与授权条目。</p>
+            <p>适用于获得明确授权的 CTF、靶场与安全研究。请勿扫描、攻击或导入未获授权的目标，更多见 <a href="faq.html">常见问题</a>。</p>
           </article>
         </div>
         <div class="callout">
-          <p><strong>授权联系：</strong>QQ 群 <strong>921416626</strong>。申请时请一并提供设备码、使用场景与需要的授权期限。</p>
+          <p><strong>购买渠道与授权联系：</strong>官方店铺入口、授权助手下载地址与售后问题，统一通过 QQ 群 <strong>921416626</strong> 获取。申请或询问时请提供设备码、使用场景与到期时间，不要发送授权文件本身。</p>
         </div>
       </div>
     </section>

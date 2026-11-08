@@ -1604,23 +1604,20 @@ thead th.current {
 
 .flow-steps {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(228px, 1fr));
+  gap: 1px;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: var(--shell);
+  background: var(--line);
   border: 1px solid var(--line);
   border-radius: 8px;
 }
 
 .flow-steps > li {
   list-style: none;
-  padding: 30px 26px;
-  border-right: 1px solid var(--line-soft);
-}
-
-.flow-steps > li:last-child {
-  border-right: 0;
+  padding: 28px 24px;
+  background: var(--shell);
 }
 
 .flow-steps b {
@@ -1914,14 +1911,13 @@ thead th.current {
 }
 
 .faq-item summary {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 16px 18px;
+  position: relative;
+  display: block;
+  padding: 16px 52px 16px 18px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.75;
   list-style: none;
 }
 
@@ -1931,7 +1927,9 @@ thead th.current {
 
 .faq-item summary::after {
   content: "+";
-  flex: none;
+  position: absolute;
+  top: 14px;
+  right: 18px;
   color: var(--cyan);
   font-family: "Cascadia Code", Consolas, monospace;
   font-size: 15px;
@@ -2018,19 +2016,6 @@ thead th.current {
 
   .doc-section {
     padding: 60px 0;
-  }
-
-  .flow-steps {
-    grid-template-columns: 1fr;
-  }
-
-  .flow-steps > li {
-    border-right: 0;
-    border-bottom: 1px solid var(--line-soft);
-  }
-
-  .flow-steps > li:last-child {
-    border-bottom: 0;
   }
 
   .license-layout,
