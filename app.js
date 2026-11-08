@@ -32,6 +32,16 @@
     link.addEventListener("click", closeMenu);
   });
 
+  // 多页站：按 body[data-page] 标记当前页，供样式与读屏软件识别。
+  const currentPage = document.body.dataset.page;
+  if (currentPage) {
+    document.querySelectorAll("[data-nav]").forEach((link) => {
+      if (link.dataset.nav === currentPage) {
+        link.setAttribute("aria-current", "page");
+      }
+    });
+  }
+
   document.querySelectorAll("[data-lightbox-src]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
       if (!lightbox || !lightboxImage) return;
@@ -64,4 +74,46 @@
     closeMenu();
     if (lightbox?.open) closeLightbox();
   });
+
+  // FAQ：支持「全部展开 / 全部收起」，并在直接访问带锚点的条目时自动展开。
+  const faqItems = () => Array.from(document.querySelectorAll("details.faq-item"));
+  const faqToggle = document.querySelector("[data-faq-all]");
+
+  const openHashTarget = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    let node = target;
+    while (node) {
+      if (node.tagName === "DETAILS") node.open = true;
+      node = node.parentElement;
+    }
+  };
+
+  if (faqToggle) {
+    const allOpen = () => {
+      const items = faqItems();
+      return items.length > 0 && items.every((item) => item.open);
+    };
+    const syncLabel = () => {
+      const open = allOpen();
+      faqToggle.textContent = open ? "全部收起" : "全部展开";
+      faqToggle.setAttribute("aria-expanded", String(open));
+    };
+
+    faqToggle.addEventListener("click", () => {
+      const open = allOpen();
+      faqItems().forEach((item) => {
+        item.open = !open;
+      });
+      syncLabel();
+    });
+
+    faqItems().forEach((item) => item.addEventListener("toggle", syncLabel));
+    syncLabel();
+  }
+
+  openHashTarget();
+  window.addEventListener("hashchange", openHashTarget);
 })();

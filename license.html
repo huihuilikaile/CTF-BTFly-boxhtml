@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090d11" />
+  <meta name="description" content="CTF-BTFly 设备授权与激活教程：如何读取本机设备码、提交给授权联系人、导入 .ctflic 离线许可证，以及更换授权、删除授权与导入失败的排查对照。" />
+  <title>授权与激活｜CTF-BTFly 2.9.5</title>
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="授权与激活｜CTF-BTFly 2.9.5" />
+  <meta property="og:description" content="离线设备绑定许可证：三步完成激活，导入无需重启，失败原因对照一次看清。" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/cpi-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="license">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="CTF-BTFly 首页"><img src="assets/cpi-icon.png" alt="" width="34" height="34" /><span><strong>CTF-BTFly</strong><small>Windows Agent Workbench</small></span></a>
+    <nav class="desktop-nav" aria-label="主导航"><a href="index.html" data-nav="home">首页</a><a href="features.html" data-nav="features">功能</a><a href="license.html" data-nav="license">授权激活</a><a href="faq.html" data-nav="faq">常见问题</a><a href="themes/index.html" data-nav="themes">配色主题</a></nav>
+    <a class="header-contact" href="index.html#start">获取测试版</a>
+    <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-nav" aria-label="打开导航"><span></span><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="移动端导航"><a href="index.html" data-nav="home">首页</a><a href="features.html" data-nav="features">功能</a><a href="license.html" data-nav="license">授权激活</a><a href="faq.html" data-nav="faq">常见问题</a><a href="themes/index.html" data-nav="themes">配色主题</a><a href="index.html#start">获取测试版</a></nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="crumb"><a href="index.html">首页</a><span class="crumb-sep" aria-hidden="true">/</span><span>授权与激活</span></p>
+        <h1>授权与激活</h1>
+        <p class="page-lead">CTF-BTFly 使用离线、设备绑定的签名许可证：程序不连接授权服务器，导入一份与本机设备码匹配的 <code>.ctflic</code> 文件即可进入工作台。本页只讲使用者需要做的三步，以及出错时怎么判断。</p>
+        <div class="page-meta">
+          <span>离线校验，不联网验证</span>
+          <span>许可证与设备码绑定</span>
+          <span>导入后无需重启</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="why">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">HOW IT WORKS</p>
+          <h2>为什么需要授权，它校验的是什么</h2>
+          <p>授权只解决一件事：确认这份软件运行在获得许可的那台机器上。它不上传你的数据，也不跟踪使用行为。</p>
+        </div>
+        <div class="card-grid">
+          <article class="info-card">
+            <h3>离线签名，无需联网</h3>
+            <p>许可证是由授权方使用私钥签发的 JSON 文件，扩展名为 <code>.ctflic</code>。程序内置公钥做验签，因此校验过程完全离线。</p>
+            <span class="card-note">Ed25519 签名 · 本地验签</span>
+          </article>
+          <article class="info-card">
+            <h3>设备绑定，不含硬件信息</h3>
+            <p>设备码由系统机器标识与系统盘卷序列号派生为 SHA-256 摘要，原始标识不会写入许可证，也不会显示在界面上。</p>
+            <span class="card-note">SHA-256 · 128 位显示标识</span>
+          </article>
+          <article class="info-card">
+            <h3>改一个字节就失效</h3>
+            <p>许可证内容可读，但任何字段被修改都会导致签名校验失败；换到另一台机器则设备校验不通过。两者都由本地控制平面判定。</p>
+            <span class="card-note">签名 / 设备 / 产品 / 有效期</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section alt" id="steps">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">THREE STEPS</p>
+          <h2>三步完成激活</h2>
+          <p>未授权时工作台会停在「设备授权」页，只保留健康检查、授权状态、许可证导入与安全退出可用。下面三步全部在这一页完成。</p>
+        </div>
+        <div class="license-layout">
+          <ol class="flow-steps">
+            <li>
+              <b>STEP 01</b>
+              <h3>读取本机设备码</h3>
+              <p>在锁定页找到「本机设备码」区块，点击「复制」。设备码形如 <code>BTF1-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XX</code>。</p>
+              <span class="step-hint">BTF1-XXXX-…-XX</span>
+            </li>
+            <li>
+              <b>STEP 02</b>
+              <h3>提交给授权联系人</h3>
+              <p>把设备码发送到下方「授权联系」中的渠道，说明使用场景（比赛、靶场或研究）与需要的期限，等待授权方签发 <code>.ctflic</code> 文件。</p>
+              <span class="step-hint">QQ 群 921416626</span>
+            </li>
+            <li>
+              <b>STEP 03</b>
+              <h3>导入离线授权文件</h3>
+              <p>回到锁定页的「导入离线授权文件」，点击「选择授权文件」并选中收到的文件。校验期间按钮显示「正在验证」，通过后立即进入主界面。</p>
+              <span class="step-hint">无需重启</span>
+            </li>
+          </ol>
+          <div>
+            <div class="license-mock" aria-hidden="true">
+              <div class="license-mock-head">
+                <span class="mock-icon">◈</span>
+                <div>
+                  <h3>设备授权</h3>
+                  <p>当前工作台已锁定。导入与本机设备码匹配、且签名有效的授权文件后即可进入。</p>
+                </div>
+              </div>
+              <div class="mock-alert">
+                <span>⚠</span>
+                <span>请复制设备码并发送给授权联系人，收到许可证后在本页导入。</span>
+              </div>
+              <div class="mock-field">
+                <div class="mock-field-label"><span>本机设备码</span><span>SHA-256 · 128 位显示标识</span></div>
+                <div class="mock-field-row">
+                  <code class="mock-code">BTF1-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XX</code>
+                  <span class="mock-button">复制</span>
+                </div>
+              </div>
+              <div class="mock-import">
+                <div>
+                  <strong>导入离线授权文件</strong>
+                  <small>只接受由授权方签名、扩展名为 .ctflic 且绑定当前设备码的文件。</small>
+                </div>
+                <span class="mock-button">选择授权文件</span>
+              </div>
+              <div class="mock-foot">
+                <span>授权联系：<em>QQ 群 921416626</em></span>
+                <span>重新检测</span>
+              </div>
+            </div>
+            <p class="card-note">上图为激活页界面示意，设备码已打码；实际文案以当前版本界面为准。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="manage">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">AFTER ACTIVATION</p>
+          <h2>已授权之后：查看、更换与删除</h2>
+          <p>激活后进入 <strong>应用设置 → 设备授权</strong>，可以核对当前实际加载的授权文件与签名元数据，而不必猜「是否已经生效」。</p>
+        </div>
+        <div class="table-wrap doc-table">
+          <table>
+            <thead><tr><th scope="col">字段</th><th scope="col">含义</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">状态与客户</th><td>校验结果、客户名称与授权版本；校验失败时该区块显示失败原因</td></tr>
+              <tr><th scope="row">许可证 ID</th><td>授权方签发时写入的标识，便于核对与追溯</td></tr>
+              <tr><th scope="row">本机设备码</th><td>当前设备的设备码，与许可证绑定的值应当一致</td></tr>
+              <tr><th scope="row">签发时间</th><td>许可证的签发时刻</td></tr>
+              <tr><th scope="row">到期时间</th><td>许可证到期时刻；未设置期限时显示「永久有效」</td></tr>
+              <tr><th scope="row">授权功能</th><td>签发时写入的功能标识，用于区分授权范围</td></tr>
+              <tr><th scope="row">当前授权文件</th><td>实际加载的文件路径，可一键复制；也可展开查看原始文件内容</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-grid" style="margin-top: 26px;">
+          <article class="info-card">
+            <h3>更换授权文件</h3>
+            <p>点击「选择并更换授权文件」。新文件会先校验签名、设备与有效期，<strong>校验失败不会覆盖当前授权</strong>，可放心试。</p>
+            <span class="card-note">先校验后替换</span>
+          </article>
+          <article class="info-card">
+            <h3>删除授权</h3>
+            <p>点击「删除授权」并二次确认后，应用立即回到激活页，任务、模型网关与 Agent 执行同时锁定。重新导入有效许可证即可恢复。</p>
+            <span class="card-note">不可撤销 · 需重新导入</span>
+          </article>
+          <article class="info-card">
+            <h3>文件存放位置</h3>
+            <p>默认落在当前用户的应用数据目录：<code>%LOCALAPPDATA%\CTF-BTFly\licensing\sandbox\license.ctflic</code>。受控的便携部署也可以把许可证放在程序同目录。</p>
+            <span class="card-note">便携路径 · 需人工放置</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section alt" id="reissue">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">WHEN TO REISSUE</p>
+          <h2>什么时候需要重新申请许可证</h2>
+          <p>设备码是设备身份与系统盘的摘要，因此下面这些操作会让设备码变化，旧许可证随即不再匹配——这是设计如此，不是「授权丢失」。</p>
+        </div>
+        <div class="table-wrap doc-table">
+          <table>
+            <thead><tr><th scope="col">情形</th><th scope="col">现象</th><th scope="col">处理</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">重装 Windows</th><td>设备码变化，提示设备不匹配</td><td>用新设备码重新申请许可证</td></tr>
+              <tr><th scope="row">克隆或更换系统盘</th><td>设备码变化，提示设备不匹配</td><td>用新设备码重新申请许可证</td></tr>
+              <tr><th scope="row">修改系统身份信息</th><td>设备码变化，提示设备不匹配</td><td>用新设备码重新申请许可证</td></tr>
+              <tr><th scope="row">许可证到期</th><td>提示有效期校验不通过</td><td>联系授权方续期或签发新许可证</td></tr>
+              <tr><th scope="row">使用了旧版本许可证</th><td>提示版本或产品不匹配</td><td>历史 Docker 版许可证不能用于当前 Windows 沙箱版，需按当前版本重新签发</td></tr>
+              <tr><th scope="row">换了另一台机器</th><td>设备不匹配</td><td>每份许可证只对签发时的设备码有效，换机需单独申请</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="troubleshoot">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">IMPORT ERRORS</p>
+          <h2>导入失败对照</h2>
+          <p>激活页会把失败原因直接写在导入按钮下方。以下是常见提示、成因与处理方式。</p>
+        </div>
+        <div class="table-wrap doc-table">
+          <table>
+            <thead><tr><th scope="col">界面提示</th><th scope="col">成因</th><th scope="col">处理</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">请选择 .ctflic 授权文件。</th><td>文件扩展名不是 <code>.ctflic</code>，例如被聊天工具改成了 <code>.txt</code></td><td>确认扩展名后重新选择；不要用压缩包内的预览文件</td></tr>
+              <tr><th scope="row">授权文件必须为不超过 64 KiB 的非空文件。</th><td>文件为 0 字节，或被套上了额外内容</td><td>让授权方重新发送原始 <code>.ctflic</code>，不要编辑或另存</td></tr>
+              <tr><th scope="row">验签失败 / 签名无效</th><td>文件被修改过，或不是授权方签发的文件</td><td>重新获取原始文件；任何字段修改都会导致验签失败</td></tr>
+              <tr><th scope="row">当前授权文件绑定了另一台设备，请使用下方设备码重新申请。</th><td>许可证绑定的设备码与本机不一致</td><td>复制本页设备码重新申请；重装系统或换盘后尤其常见</td></tr>
+              <tr><th scope="row">产品 / 版本不匹配</th><td>用了历史 Docker 版或其他版本的许可证</td><td>按当前 Windows 沙箱版重新签发</td></tr>
+              <tr><th scope="row">许可证已过期</th><td>到期时间早于当前时间</td><td>联系授权方续期，或改用长期许可证</td></tr>
+              <tr><th scope="row">无法访问剪贴板，请手动选择并复制设备码。</th><td>浏览器或系统拦截了剪贴板写入</td><td>手动选中设备码文本复制，效果相同</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <p><strong>先确认一件事：</strong>许可证是否真的没生效。打开「应用设置 → 设备授权」看「当前授权文件」路径与到期时间，比反复重试导入更快定位问题。</p>
+          <p>仍未解决时，把设备码、许可证 ID 与界面提示原文一起发到授权联系渠道，不要发送许可证文件本身。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section alt" id="boundary">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">BOUNDARY</p>
+          <h2>授权边界</h2>
+          <p>把边界说清楚，比事后解释省事。以下四点是使用许可证时的硬约束。</p>
+        </div>
+        <div class="card-grid">
+          <article class="info-card">
+            <h3>签发由授权方完成</h3>
+            <p>许可证必须由持有私钥的授权方离线签发。站点不提供、也不分发任何签发工具，因此不存在「自己生成一个许可证」的路径。</p>
+          </article>
+          <article class="info-card">
+            <h3>一份许可证对应一个设备码</h3>
+            <p>许可证与签发时的设备码严格绑定，复制到其他机器无法通过校验。因此设备数量需要按实际使用单独申请。</p>
+          </article>
+          <article class="info-card">
+            <h3>不要公开许可证与设备码</h3>
+            <p>许可证本身不含密钥，但仍属于个人授权凭证。对外反馈问题时提供许可证 ID 即可，不要贴出完整文件或设备码。</p>
+          </article>
+          <article class="info-card">
+            <h3>仅限授权范围使用</h3>
+            <p>适用于获得明确授权的 CTF、靶场与安全研究。请勿扫描、攻击或导入未获授权的目标，详见 <a href="faq.html">常见问题</a> 中的数据与授权条目。</p>
+          </article>
+        </div>
+        <div class="callout">
+          <p><strong>授权联系：</strong>QQ 群 <strong>921416626</strong>。申请时请一并提供设备码、使用场景与需要的授权期限。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="index.html"><img src="assets/cpi-icon.png" alt="" width="32" height="32" /><span><strong>CTF-BTFly</strong><small>Authorized security research only</small></span></a><p>© 2026 CTF-BTFly · v2.9.5 · 产品截图为 2.7.9 实机运行界面，敏感信息已脱敏。</p></div></footer>
+  <dialog class="lightbox" data-lightbox><button type="button" data-lightbox-close aria-label="关闭图片预览">×</button><img src="" alt="CTF-BTFly 真实产品界面大图" /><p>真实 GUI 截图 · 敏感信息已脱敏</p></dialog>
+  <script src="app.js"></script>
+</body>
+</html>

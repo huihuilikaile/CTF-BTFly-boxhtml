@@ -1397,3 +1397,667 @@ thead th.current {
     transition-duration: .01ms !important;
   }
 }
+
+/* ==========================================================================
+   多页站扩展（2.9.5 改版）
+   新增：导航当前页态、页面头、文档版式、能力卡、更新卡、流程步骤、
+        授权界面示意、文档表格、提示块、FAQ 折叠、引导卡。
+   仅追加，不覆盖上方既有字典与组件。
+   ========================================================================== */
+
+.desktop-nav a[aria-current="page"] {
+  color: #fff;
+}
+
+.desktop-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.mobile-nav a[aria-current="page"] {
+  color: var(--cyan);
+}
+
+.page-hero {
+  position: relative;
+  padding: calc(var(--header) + 76px) 0 64px;
+  border-bottom: 1px solid var(--line-soft);
+  background:
+    radial-gradient(1100px 340px at 12% -12%, rgba(80, 204, 217, .13), transparent 72%),
+    #0a0f13;
+}
+
+.page-hero h1 {
+  margin: 12px 0 18px;
+  color: #fff;
+  font-size: clamp(32px, 4.4vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.page-lead {
+  max-width: 780px;
+  margin-bottom: 0;
+  color: #b2c0c5;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.page-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 11px;
+}
+
+.page-meta span::before {
+  content: "";
+  flex: none;
+  width: 5px;
+  height: 5px;
+  background: var(--cyan);
+  border-radius: 50%;
+}
+
+.crumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--dim);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 11px;
+}
+
+.crumb a {
+  color: var(--cyan);
+}
+
+.crumb .crumb-sep {
+  opacity: .45;
+}
+
+.doc-section {
+  padding: 78px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.doc-section:last-of-type {
+  border-bottom: 0;
+}
+
+.doc-section.alt {
+  background: #0a0f13;
+}
+
+.doc-head {
+  max-width: 860px;
+  margin-bottom: 36px;
+}
+
+.doc-head h2 {
+  margin: 12px 0 14px;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.18;
+}
+
+.doc-head p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: 14px;
+}
+
+.info-card {
+  padding: 26px;
+  background: var(--shell);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.info-card h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.info-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.info-card ul,
+.update-card ul,
+.doc-list {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  color: #a9b7bc;
+  font-size: 12.5px;
+  line-height: 1.85;
+}
+
+.info-card li + li,
+.update-card li + li,
+.doc-list li + li {
+  margin-top: 5px;
+}
+
+.card-note {
+  display: block;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--dim);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.update-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.update-card {
+  padding: 26px;
+  background: var(--shell);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--cyan);
+  border-radius: 8px;
+}
+
+.update-card h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.update-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.update-card h3 span {
+  margin-right: 8px;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+}
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--shell);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.flow-steps > li {
+  list-style: none;
+  padding: 30px 26px;
+  border-right: 1px solid var(--line-soft);
+}
+
+.flow-steps > li:last-child {
+  border-right: 0;
+}
+
+.flow-steps b {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+}
+
+.flow-steps h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.flow-steps p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.step-hint {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 4px 8px;
+  color: #b7edf1;
+  background: rgba(80, 204, 217, .07);
+  border: 1px solid rgba(80, 204, 217, .22);
+  border-radius: 4px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 11px;
+}
+
+.license-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.license-mock {
+  padding: 22px;
+  background: #0b1116;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, .45);
+}
+
+.license-mock-head {
+  display: flex;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.mock-icon {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: var(--cyan);
+  background: rgba(80, 204, 217, .1);
+  border-radius: 12px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 15px;
+}
+
+.license-mock h3 {
+  margin: 5px 0 6px;
+  font-size: 15px;
+}
+
+.license-mock-head p {
+  margin: 0;
+  color: var(--dim);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+.mock-alert {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 13px 14px;
+  color: #f0d3ae;
+  background: rgba(228, 172, 97, .08);
+  border: 1px solid rgba(228, 172, 97, .28);
+  border-radius: 8px;
+  font-size: 11.5px;
+  line-height: 1.75;
+}
+
+.mock-field {
+  margin-top: 14px;
+  padding: 14px;
+  background: #0d151b;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.mock-field-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: var(--dim);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.mock-field-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mock-code {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 10px 12px;
+  color: #b7edf1;
+  background: rgba(80, 204, 217, .06);
+  border: 1px solid rgba(80, 204, 217, .2);
+  border-radius: 5px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: .04em;
+  word-break: break-all;
+}
+
+.mock-button {
+  flex: none;
+  padding: 9px 14px;
+  color: #081114;
+  background: var(--cyan);
+  border: 1px solid var(--cyan);
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mock-button.ghost {
+  color: #cfe3e6;
+  background: transparent;
+  border-color: var(--line);
+}
+
+.mock-import {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 14px;
+  background: #0d151b;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.mock-import div {
+  min-width: 0;
+}
+
+.mock-import strong {
+  display: block;
+  font-size: 12.5px;
+}
+
+.mock-import small {
+  display: block;
+  margin-top: 5px;
+  color: var(--dim);
+  font-size: 10.5px;
+  line-height: 1.6;
+}
+
+.mock-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--dim);
+  font-size: 10.5px;
+}
+
+.mock-foot em {
+  color: var(--cyan);
+  font-style: normal;
+}
+
+.table-wrap.doc-table table {
+  min-width: 620px;
+}
+
+.table-wrap.doc-table tbody th {
+  width: 190px;
+}
+
+.callout {
+  margin-top: 26px;
+  padding: 18px 20px;
+  background: rgba(80, 204, 217, .05);
+  border: 1px solid rgba(80, 204, 217, .2);
+  border-left: 3px solid var(--cyan);
+  border-radius: 6px;
+}
+
+.callout p {
+  margin: 0;
+  color: #b9c8cd;
+  font-size: 12.5px;
+  line-height: 1.8;
+}
+
+.callout p + p {
+  margin-top: 10px;
+}
+
+.callout strong {
+  color: #e6f2f4;
+}
+
+.faq-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.faq-nav a {
+  padding: 6px 13px;
+  color: var(--muted);
+  background: var(--shell);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.faq-nav a:hover,
+.faq-nav a:focus-visible {
+  color: #fff;
+  border-color: var(--cyan);
+}
+
+.faq-tools {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 26px;
+}
+
+.faq-toggle {
+  padding: 7px 14px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.faq-toggle:hover {
+  color: #fff;
+  border-color: var(--cyan);
+}
+
+.faq-group {
+  margin-bottom: 40px;
+}
+
+.faq-group > h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.faq-item {
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: var(--shell);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.faq-item:target {
+  border-color: var(--cyan);
+}
+
+.faq-item summary {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  flex: none;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.faq-item[open] summary::after {
+  content: "−";
+}
+
+.faq-body {
+  padding: 0 18px 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.faq-body p {
+  margin: 0;
+}
+
+.faq-body p + p,
+.faq-body ul {
+  margin-top: 10px;
+}
+
+.faq-body ul {
+  padding-left: 18px;
+}
+
+.cta-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.cta-card {
+  display: block;
+  padding: 28px;
+  background: linear-gradient(140deg, #101a21, #0c1318);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  transition: border-color .2s ease, transform .2s ease;
+}
+
+.cta-card:hover,
+.cta-card:focus-visible {
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+}
+
+.cta-card small {
+  display: block;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.cta-card h3 {
+  margin: 12px 0 10px;
+  font-size: 19px;
+}
+
+.cta-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.cta-card span.arrow {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+}
+
+@media (max-width: 980px) {
+  .page-hero {
+    padding: calc(var(--header) + 52px) 0 48px;
+  }
+
+  .doc-section {
+    padding: 60px 0;
+  }
+
+  .flow-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-steps > li {
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .flow-steps > li:last-child {
+    border-bottom: 0;
+  }
+
+  .license-layout,
+  .update-grid,
+  .cta-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .mock-import {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mock-field-row {
+    flex-wrap: wrap;
+
+  }
+
+  .mock-foot {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* 配色主题预览页：在固定头部下留出空间，导航与主站保持一致。 */
+.wrap.theme-gallery {
+  padding-top: calc(var(--header) + 56px);
+}

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090d11" />
+  <meta name="description" content="CTF-BTFly 常见问题：安装与启动、设备授权、模型配置、沙箱与工具体系、在线更新、数据与隐私，共六组，每条都带锚点可直接分享。" />
+  <title>常见问题｜CTF-BTFly 2.9.5</title>
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="常见问题｜CTF-BTFly 2.9.5" />
+  <meta property="og:description" content="安装、授权、模型、沙箱、在线更新与数据隐私六组常见问题，支持按条直链分享。" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/cpi-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="faq">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="CTF-BTFly 首页"><img src="assets/cpi-icon.png" alt="" width="34" height="34" /><span><strong>CTF-BTFly</strong><small>Windows Agent Workbench</small></span></a>
+    <nav class="desktop-nav" aria-label="主导航"><a href="index.html" data-nav="home">首页</a><a href="features.html" data-nav="features">功能</a><a href="license.html" data-nav="license">授权激活</a><a href="faq.html" data-nav="faq">常见问题</a><a href="themes/index.html" data-nav="themes">配色主题</a></nav>
+    <a class="header-contact" href="index.html#start">获取测试版</a>
+    <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-nav" aria-label="打开导航"><span></span><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="移动端导航"><a href="index.html" data-nav="home">首页</a><a href="features.html" data-nav="features">功能</a><a href="license.html" data-nav="license">授权激活</a><a href="faq.html" data-nav="faq">常见问题</a><a href="themes/index.html" data-nav="themes">配色主题</a><a href="index.html#start">获取测试版</a></nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="crumb"><a href="index.html">首页</a><span class="crumb-sep" aria-hidden="true">/</span><span>常见问题</span></p>
+        <h1>常见问题</h1>
+        <p class="page-lead">六组共二十四条，覆盖安装启动、设备授权、模型、沙箱与工具、在线更新、数据隐私。每条都有独立锚点，可以直接把链接发给同伴，对方打开即自动展开这一条。</p>
+        <div class="page-meta">
+          <span>适用于 v2.9.5 beta</span>
+          <span>每条可直链</span>
+          <span>支持全部展开 / 收起</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <div class="container">
+        <nav class="faq-nav" aria-label="问题分组">
+          <a href="#faq-install">安装与启动</a>
+          <a href="#faq-license">设备授权</a>
+          <a href="#faq-model">模型配置</a>
+          <a href="#faq-sandbox">沙箱与工具</a>
+          <a href="#faq-update">在线更新</a>
+          <a href="#faq-data">数据与隐私</a>
+        </nav>
+        <div class="faq-tools">
+          <button class="faq-toggle" type="button" data-faq-all aria-expanded="false">全部展开</button>
+        </div>
+
+        <section class="faq-group" id="faq-install">
+          <h2>安装与启动</h2>
+
+          <details class="faq-item" id="faq-exe-only">
+            <summary>只复制 <code>CTF-BTFly.exe</code> 到别的目录能运行吗？</summary>
+            <div class="faq-body">
+              <p>不能。主程序只是桌面外壳，同目录还需要本地控制平面、沙箱 Broker 与 Runner、更新进程、随包运行文件以及 <code>theme/</code>、<code>defaults/</code> 等资源目录。</p>
+              <p>正确做法是完整解压发布包，并把整个目录放在当前用户可写、路径较短的<strong>新位置</strong>；不要只挑单个可执行文件复制。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-first-run-slow">
+            <summary>首次启动卡很久，是卡死了吗？</summary>
+            <div class="faq-body">
+              <p>通常不是。首次启动会在程序旁创建 <code>data/</code> 并初始化工具资产，首次需要复制的工具资产体量较大，耗时长属正常现象；初始化完成后，后续启动会复用，明显变快。</p>
+              <p>若长时间没有进展，先确认程序目录完整（<code>defaults/</code> 与随包运行文件都在），再看 <code>data/daemon.log</code> 是否有明确报错。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-smartscreen">
+            <summary>Windows 提示「未知发布者」或被 SmartScreen 拦截，怎么办？</summary>
+            <div class="faq-body">
+              <p>当前版本未做 Windows 代码签名，因此首次运行会触发 SmartScreen 提示，需要手动选择「仍要运行」放行一次。通过应用内在线更新替换的文件通常不再触发该提示。</p>
+              <p>请只从可信渠道获取发布包，并核对随包的 <code>.sha256</code> 校验值；不要为了「省事」关闭系统安全策略。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-no-second-window">
+            <summary>再双击一次没有打开第二个窗口？</summary>
+            <div class="faq-body">
+              <p>这是设计行为：同一个数据目录只允许一个桌面实例。再次双击会把已有窗口恢复到前台并退出新进程，避免两个实例同时写数据库。</p>
+              <p>另外，关闭桌面窗口并不会结束后台控制平面，所以重新打开应用通常是复用已有进程，而不是重新启动一次。要彻底重启，请先在托盘退出程序。</p>
+            </div>
+          </details>
+        </section>
+
+        <section class="faq-group" id="faq-license">
+          <h2>设备授权</h2>
+
+          <details class="faq-item" id="faq-device-code">
+            <summary>设备码在哪里看？</summary>
+            <div class="faq-body">
+              <p>未授权时工作台会停在「设备授权」页，页面中的「本机设备码」区块就是设备码，点击右侧「复制」即可。已授权后也可以在 <strong>应用设置 → 设备授权</strong> 查看同一份设备码。</p>
+              <p>设备码形如 <code>BTF1-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XX</code>，它只是机器标识与系统盘卷序列号的摘要，不含原始硬件信息。完整流程见 <a href="license.html">授权与激活</a>。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-reinstall">
+            <summary>重装系统或换了硬盘，为什么原来的许可证不能用了？</summary>
+            <div class="faq-body">
+              <p>许可证绑定的是签发时那台机器的设备码，而设备码由系统机器标识与系统盘卷序列号派生。重装 Windows、克隆或更换系统盘、修改系统身份都会让设备码变化，旧许可证随即不匹配。</p>
+              <p>处理办法是用新的设备码重新申请许可证，不需要排查软件故障。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-offline">
+            <summary>能不能完全离线使用？</summary>
+            <div class="faq-body">
+              <p>授权环节可以完全离线：许可证是本地文件，程序内置公钥验签，不连接任何授权服务器，也不会上传使用数据。</p>
+              <p>需要注意「离线轻量」只影响本地模型与精简 Agent 策略，沙箱的网络范围是独立配置项；要访问在线模型或联网靶机时仍需网络。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-need-restart">
+            <summary>导入许可证后需要重启软件吗？</summary>
+            <div class="faq-body">
+              <p>不需要。校验通过后工作台会立即进入主界面，并开始调度此前待启动的任务。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-device-mismatch">
+            <summary>导入时提示「当前授权文件绑定了另一台设备」怎么办？</summary>
+            <div class="faq-body">
+              <p>说明收到的许可证对应的设备码与本机不一致。请复制激活页上的当前设备码，向授权方重新申请；不要尝试修改许可证文件内容，任何字段改动都会让签名失效。</p>
+              <p>常见诱因：重装系统、换盘或克隆、误用了另一台机器的许可证。更多失败提示见 <a href="license.html#troubleshoot">导入失败对照</a>。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-license-terms">
+            <summary>一份许可证能用在几台机器？到期怎么续？</summary>
+            <div class="faq-body">
+              <p>这类授权条款以授权方的答复为准，本页不代为承诺。请在 QQ 群 <strong>921416626</strong> 说明设备码与使用场景后确认。</p>
+              <p>可以确定的技术事实是：许可证与设备码严格绑定，复制到另一台机器无法通过校验；到期后有效期校验不通过，需要由授权方续期或重新签发。</p>
+            </div>
+          </details>
+        </section>
+
+        <section class="faq-group" id="faq-model">
+          <h2>模型配置</h2>
+
+          <details class="faq-item" id="faq-model-403">
+            <summary>模型请求返回 403？</summary>
+            <div class="faq-body">
+              <p>先核对三处：Base URL 是否写成完整的接口前缀、协议是否与目标服务一致、是否需要额外的 User-Agent。然后确认该 Key 对目标模型有调用权限、未触发限流。</p>
+              <p>可在「系统概况 → 模型连接」单独检测该模型，避免把配置问题误判成任务问题。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-local-model">
+            <summary>只用本地模型可以吗？</summary>
+            <div class="faq-body">
+              <p>可以。在线与本地 OpenAI-compatible 模型都可接入，本地部署时把 Base URL 指向本机服务即可。</p>
+              <p>如果使用黑板或超级模式，需要准备多个不同模型：调度模型与 Worker 模型不能重复，Worker 之间也不能重复。</p>
+            </div>
+          </details>
+        </section>
+
+        <section class="faq-group" id="faq-sandbox">
+          <h2>沙箱与工具</h2>
+
+          <details class="faq-item" id="faq-sandbox-state">
+            <summary>Windows 沙箱一直显示 <code>preparing</code> 或 <code>unavailable</code>？</summary>
+            <div class="faq-body">
+              <p><code>preparing</code> 表示 Broker 正在准备共享目录权限，此时设置页可用，但任务创建入口会保持禁用；成功后自动进入 <code>ready</code>。</p>
+              <p>若停在 <code>unavailable</code>：确认首次 Broker 准备时弹出的 UAC 请求已同意、程序目录完整（Broker 与 Runner 都在）、设置页给出的结构化错误指向哪里。<code>unavailable</code> 是可重试状态，不需要重装。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-resolve-host">
+            <summary>命令报 <code>Could not resolve host</code>？</summary>
+            <div class="faq-body">
+              <p>说明该任务的网络范围不允许访问目标。把题目的网络范围改为「默认（公网与局域网）」，然后停止旧任务并重新配置启动。</p>
+              <p>修改网络范围不会影响已在运行的任务，必须重新配置或重试才生效。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-port-conflict">
+            <summary>日志出现端口 <code>bind 10013</code> 或 <code>address already in use</code>？</summary>
+            <div class="faq-body">
+              <p><code>bind 10013</code> 通常是端口被系统保留或权限不足。确认四个可执行文件来自同一个发布包，并完全结束残留进程后重启；正常回退时日志会给出实际使用的端口。</p>
+              <p><code>address already in use</code> 表示端口已被占用，需要退出残留的控制平面进程或处理占用方，不会自动换端口。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-python-deps">
+            <summary>受管 Python 依赖构建失败，或一直停在「等待发布」？</summary>
+            <div class="faq-body">
+              <p>构建失败先看两条：依赖是否写成精确的 <code>package==version</code>（不要用范围或 latest），以及该版本是否提供 CPython 3.12 x64 的 wheel；同时填写正确的实际导入名。</p>
+              <p>「一直等待发布」表示产物要在完全重启后才原子发布。请彻底结束桌面端、控制平面、Broker、Runner 与任务进程后重新启动。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-auto-install">
+            <summary>基础工具检测会帮我下载安装工具吗？</summary>
+            <div class="faq-body">
+              <p>不会。基础工具检测只读取你选择的目录与 JSON 清单，不下载、不安装、不更新任何程序，也不会执行包管理器命令。</p>
+              <p>唯一的例外是「受管 Python 依赖」：只有你明确确认构建时，才会在隔离目录内安装固定版本依赖，成功产物在重启后发布。</p>
+            </div>
+          </details>
+        </section>
+
+        <section class="faq-group" id="faq-update">
+          <h2>在线更新</h2>
+
+          <details class="faq-item" id="faq-update-disabled">
+            <summary>提示「当前版本未启用在线更新」？</summary>
+            <div class="faq-body">
+              <p>该构建未内置更新公钥，或本地控制平面版本过旧。使用完整发布包手动覆盖升级一次后即可恢复该入口。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-update-no-response">
+            <summary>点「立即更新并重启」之后没有反应？</summary>
+            <div class="faq-body">
+              <p>先看 <code>data/.update/updater.log</code>。如果日志出现「等待进程退出超时」，说明应用并没有真正退出——最常见原因是有任务正在运行。</p>
+              <p>更新前需要让所有任务结束；应用常驻托盘，也可以在托盘里先选「退出程序」再重试。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-update-failed">
+            <summary>更新后版本没变，或者更新失败，会弄坏程序吗？</summary>
+            <div class="faq-body">
+              <p>替换过程中任何文件写入失败都会整体回滚到更新前状态，并在 <code>.update/rollback-&lt;时间戳&gt;/</code> 保留被替换文件的原始副本，同时日志会记录本次替换了多少文件。</p>
+              <p>确认新版本稳定后可以手动清理回滚目录；排查时先读 <code>updater.log</code>，再对照回滚目录。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-downgrade">
+            <summary>能通过在线更新降级到旧版本吗？</summary>
+            <div class="faq-body">
+              <p>不能。客户端只接受版本号高于当前版本的清单，因此在线更新不做跨版本降级。</p>
+              <p>确需回退时，用旧版完整发布包手动覆盖同名文件；<code>data/</code> 目录、自装 Skill 与许可证不会被覆盖。</p>
+            </div>
+          </details>
+        </section>
+
+        <section class="faq-group" id="faq-data">
+          <h2>数据与隐私</h2>
+
+          <details class="faq-item" id="faq-data-dir">
+            <summary><code>data/</code> 目录里有什么？</summary>
+            <div class="faq-body">
+              <ul>
+                <li>任务、事件、黑板、模型用量与 MCP 注册表数据库</li>
+                <li>连接信息与本地鉴权令牌（含敏感信息，不要外发）</li>
+                <li>题目工作区：附件、Artifact 与 <code>WRITEUP.md</code></li>
+                <li>工具包、基础工具配置、受管 Python 运行时</li>
+                <li>用户提示词副本与自装 Skill</li>
+                <li>在线更新的下载缓存、日志与回滚快照</li>
+              </ul>
+              <p>默认位置是程序旁的 <code>data/</code>，也可以通过环境变量指向其他绝对目录。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-data-move">
+            <summary>改了数据目录，旧任务为什么不见了？</summary>
+            <div class="faq-body">
+              <p>切换数据位置只改变下次启动使用的路径，<strong>不会</strong>在线移动或复制旧数据。切到一个空目录后旧任务自然不显示，但数据仍完整保留在原目录，切回原路径即可再次访问。</p>
+              <p>需要迁移时：确认没有运行中的任务并完整退出，备份旧目录，把旧的数据库与整个工作区目录复制到新位置，再启动确认题目、附件与 Writeup 都可访问。验证完成前不要删除旧目录。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-never-upload">
+            <summary>哪些内容绝对不能上传或外发？</summary>
+            <div class="faq-body">
+              <p>模型 API Key 与凭据文件、许可证文件、比赛附件与 Flag、题目工作区与 <code>data/</code> 目录整体，以及运行日志中的本机路径段。</p>
+              <p>反馈问题需要提供信息时，优先给出许可证 ID、界面提示原文与脱敏后的日志片段。</p>
+            </div>
+          </details>
+        </section>
+
+        <div class="callout">
+          <p><strong>没有找到答案？</strong>到 QQ 群 <strong>921416626</strong> 提问，附上版本号、界面提示原文与已尝试的步骤。想先系统了解授权流程，请看 <a href="license.html">授权与激活</a>。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="index.html"><img src="assets/cpi-icon.png" alt="" width="32" height="32" /><span><strong>CTF-BTFly</strong><small>Authorized security research only</small></span></a><p>© 2026 CTF-BTFly · v2.9.5 · 产品截图为 2.7.9 实机运行界面，敏感信息已脱敏。</p></div></footer>
+  <dialog class="lightbox" data-lightbox><button type="button" data-lightbox-close aria-label="关闭图片预览">×</button><img src="" alt="CTF-BTFly 真实产品界面大图" /><p>真实 GUI 截图 · 敏感信息已脱敏</p></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
