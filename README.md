@@ -70,8 +70,10 @@ python -m http.server 4173
 
 ## 待补项
 
-以下内容需要线上部署域名确定后再补，避免写入猜测地址：
+以下内容需要先确认最终对外域名，避免写入会引发错误的地址：
 
-- `og:image`、`rel="canonical"` 的绝对 URL（当前页面仅有 `og:type/title/description` 与 `twitter:card`）
-- `robots.txt`、`sitemap.xml`
+- `og:image`、`og:url`、`rel="canonical"` 的绝对 URL（当前仅有 `og:type/title/description` 与 `twitter:card`）。
+  生产站目前由 Netlify 项目 `ctf-btfly-box` 托管（形如 `ctf-btfly-box.netlify.app`）。若后续接入自定义域名，
+  canonical 必须同步改为最终域名，否则会把自定义域名的收录权重让给 Netlify 子域，因此这里不做硬编码。
+- `robots.txt`、`sitemap.xml`（同样依赖最终域名）
 - 未被任何页面引用的历史截图清理（约 7.9 MB）
