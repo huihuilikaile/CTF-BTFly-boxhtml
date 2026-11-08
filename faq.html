@@ -28,7 +28,7 @@
       <div class="container">
         <p class="crumb"><a href="index.html">首页</a><span class="crumb-sep" aria-hidden="true">/</span><span>常见问题</span></p>
         <h1>常见问题</h1>
-        <p class="page-lead">六组共二十四条，覆盖安装启动、设备授权、模型、沙箱与工具、在线更新、数据隐私。每条都有独立锚点，可以直接把链接发给同伴，对方打开即自动展开这一条。</p>
+        <p class="page-lead">六组共二十七条，覆盖购买与授权、安装启动、模型、沙箱与工具、在线更新、数据隐私。每条都有独立锚点，可以直接把链接发给同伴，对方打开即自动展开这一条。</p>
         <div class="page-meta">
           <span>适用于 v2.9.5 beta</span>
           <span>每条可直链</span>
@@ -41,7 +41,7 @@
       <div class="container">
         <nav class="faq-nav" aria-label="问题分组">
           <a href="#faq-install">安装与启动</a>
-          <a href="#faq-license">设备授权</a>
+          <a href="#faq-license">购买与授权</a>
           <a href="#faq-model">模型配置</a>
           <a href="#faq-sandbox">沙箱与工具</a>
           <a href="#faq-update">在线更新</a>
@@ -88,7 +88,23 @@
         </section>
 
         <section class="faq-group" id="faq-license">
-          <h2>设备授权</h2>
+          <h2>购买与设备授权</h2>
+
+          <details class="faq-item" id="faq-buy">
+            <summary>怎么购买？开通码是什么？</summary>
+            <div class="faq-body">
+              <p>在官方店铺购买「BTFly 授权」商品，拍下后自动发货，发货内容<strong>只有一串一次性开通码</strong>，不含任何下载链接。开通码用于在授权助手中注册授权账号，用过即失效。</p>
+              <p>店铺入口与购买咨询可在 QQ 群 <strong>921416626</strong> 获取；商品页的「使用说明」里有授权助手与软件本体的下载地址，以及图文步骤。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-assistant">
+            <summary>授权助手在哪里下载？</summary>
+            <div class="faq-body">
+              <p>授权助手与 CTF-BTFly 软件本体的下载地址，都写在购买商品的「使用说明」中，发货内容里不含链接。</p>
+              <p>找不到或链接失效时，到 QQ 群 <strong>921416626</strong> 反馈，不要从第三方来源下载可执行文件。</p>
+            </div>
+          </details>
 
           <details class="faq-item" id="faq-device-code">
             <summary>设备码在哪里看？</summary>
@@ -98,42 +114,50 @@
             </div>
           </details>
 
-          <details class="faq-item" id="faq-reinstall">
-            <summary>重装系统或换了硬盘，为什么原来的许可证不能用了？</summary>
+          <details class="faq-item" id="faq-license-terms">
+            <summary>授权有效期多久？到期怎么续？</summary>
             <div class="faq-body">
-              <p>许可证绑定的是签发时那台机器的设备码，而设备码由系统机器标识与系统盘卷序列号派生。重装 Windows、克隆或更换系统盘、修改系统身份都会让设备码变化，旧许可证随即不匹配。</p>
-              <p>处理办法是用新的设备码重新申请许可证，不需要排查软件故障。</p>
-            </div>
-          </details>
-
-          <details class="faq-item" id="faq-offline">
-            <summary>能不能完全离线使用？</summary>
-            <div class="faq-body">
-              <p>授权环节可以完全离线：许可证是本地文件，程序内置公钥验签，不连接任何授权服务器，也不会上传使用数据。</p>
-              <p>需要注意「离线轻量」只影响本地模型与精简 Agent 策略，沙箱的网络范围是独立配置项；要访问在线模型或联网靶机时仍需网络。</p>
+              <p>授权助手自助生成的授权单次有效期为 <strong>30 天</strong>。到期后不会丢失任何数据，软件只是回到「设备授权」页并锁定任务、模型网关与 Agent 执行。</p>
+              <p>续期是自助动作：打开授权助手，在当前账号内手动续期，重新导出 <code>.ctflic</code>，再到 <strong>应用设置 → 设备授权</strong> 点击「选择并更换授权文件」替换即可。</p>
             </div>
           </details>
 
           <details class="faq-item" id="faq-need-restart">
             <summary>导入许可证后需要重启软件吗？</summary>
             <div class="faq-body">
-              <p>不需要。校验通过后工作台会立即进入主界面，并开始调度此前待启动的任务。</p>
+              <p>不需要。校验通过后工作台会立即进入主界面，并开始调度此前待启动的任务；续期后更换授权文件同样不需要重启。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-reinstall">
+            <summary>重装系统或换了硬盘，为什么原来的授权不能用了？</summary>
+            <div class="faq-body">
+              <p>授权绑定的是生成时那台机器的设备码，而设备码由系统机器标识与系统盘卷序列号派生。重装 Windows、克隆或更换系统盘、修改系统身份都会让设备码变化，旧授权随即不匹配。</p>
+              <p>这属于<strong>设备变更</strong>，需要联系管理员处理，不要自行重复注册新账号。</p>
             </div>
           </details>
 
           <details class="faq-item" id="faq-device-mismatch">
-            <summary>导入时提示「当前授权文件绑定了另一台设备」怎么办？</summary>
+            <summary>想换一台电脑，授权能带过去吗？</summary>
             <div class="faq-body">
-              <p>说明收到的许可证对应的设备码与本机不一致。请复制激活页上的当前设备码，向授权方重新申请；不要尝试修改许可证文件内容，任何字段改动都会让签名失效。</p>
-              <p>常见诱因：重装系统、换盘或克隆、误用了另一台机器的许可证。更多失败提示见 <a href="license.html#troubleshoot">导入失败对照</a>。</p>
+              <p>不能直接复制过去：授权文件与设备码严格绑定，拿到另一台机器上会提示「当前授权文件绑定了另一台设备」。</p>
+              <p>更换设备属于设备变更，请联系管理员办理；对外的反馈与申请统一走 QQ 群 <strong>921416626</strong>，不要尝试修改授权文件内容。</p>
             </div>
           </details>
 
-          <details class="faq-item" id="faq-license-terms">
-            <summary>一份许可证能用在几台机器？到期怎么续？</summary>
+          <details class="faq-item" id="faq-offline">
+            <summary>能不能完全离线使用？</summary>
             <div class="faq-body">
-              <p>这类授权条款以授权方的答复为准，本页不代为承诺。请在 QQ 群 <strong>921416626</strong> 说明设备码与使用场景后确认。</p>
-              <p>可以确定的技术事实是：许可证与设备码严格绑定，复制到另一台机器无法通过校验；到期后有效期校验不通过，需要由授权方续期或重新签发。</p>
+              <p>授权环节可以完全离线：授权文件是本地文件，程序内置公钥验签，不连接任何授权服务器，也不会上传使用数据。</p>
+              <p>需要注意「离线轻量」只影响本地模型与精简 Agent 策略，沙箱的网络范围是独立配置项；要访问在线模型或联网靶机时仍需网络。</p>
+            </div>
+          </details>
+
+          <details class="faq-item" id="faq-license-lost">
+            <summary>授权文件丢了或误删了怎么办？</summary>
+            <div class="faq-body">
+              <p>不需要重新购买。在授权助手的原账号内重新导出 <code>.ctflic</code> 即可，它仍然绑定同一设备码。</p>
+              <p>如果在软件内误点了「删除授权」，应用会立即回到激活页，重新导入有效授权文件即可恢复。</p>
             </div>
           </details>
         </section>
