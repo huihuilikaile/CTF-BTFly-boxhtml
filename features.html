@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090d11" />
+  <meta name="description" content="CTF-BTFly 2.9.5 功能全景：多 Agent 协作模式、Windows AppContainer 沙箱、启动与做题流程、五路工具体系、版本对比与 2.8–2.9 新增能力。" />
+  <title>功能全景｜CTF-BTFly 2.9.5</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="功能全景｜CTF-BTFly 2.9.5" />
+  <meta property="og:description" content="四种协作模式、原生沙箱边界、五路工具体系与三代版本差异。" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/cpi-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="features">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="CTF-BTFly 首页"><img src="assets/cpi-icon.png" alt="" width="34" height="34" /><span><strong>CTF-BTFly</strong><small>Windows Agent Workbench</small></span></a>
+    <nav class="desktop-nav" aria-label="主导航"><a href="index.html" data-nav="home">首页</a><a href="features.html" data-nav="features">功能</a><a href="license.html" data-nav="license">授权激活</a><a href="faq.html" data-nav="faq">常见问题</a><a href="themes/index.html" data-nav="themes">配色主题</a></nav>
+    <a class="header-contact" href="index.html#start">获取测试版</a>
+    <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-nav" aria-label="打开导航"><span></span><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="移动端导航"><a href="index.html" data-nav="home">首页</a><a href="features.html" data-nav="features">功能</a><a href="license.html" data-nav="license">授权激活</a><a href="faq.html" data-nav="faq">常见问题</a><a href="themes/index.html" data-nav="themes">配色主题</a><a href="index.html#start">获取测试版</a></nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="crumb"><a href="index.html">首页</a><span class="crumb-sep" aria-hidden="true">/</span><span>功能全景</span></p>
+        <h1>功能全景</h1>
+        <p class="page-lead">CTF-BTFly 把模型协作、受控执行、证据沉淀与人工复核放在同一工作台中，让解题过程可以观察、干预、恢复和交付。本页给出能力全貌、流程、工具体系与三代版本差异。</p>
+        <div class="page-meta">
+          <span>v2.9.5 beta</span>
+          <span>Windows 10 22H2 / 11 x64</span>
+          <span>无需 Docker Desktop 或 WSL</span>
+          <span>四种协作模式</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section release-detail" id="overview">
+      <div class="container split-heading"><div><p class="kicker">COMPLETE WORKBENCH</p><h2>不只是对话，而是一套完整做题系统</h2></div><p>CTF-BTFly 把模型协作、受控执行、证据沉淀与人工复核放在同一工作台中，让解题过程可以观察、干预、恢复和交付。</p></div>
+      <div class="container feature-grid">
+        <article><span class="feature-index">01</span><h3>让多个模型真正参与协作</h3><p>既可以由单个 Agent 快速推进，也可以让 Coordinator 拆题、Worker 独立验证，并通过共享黑板沉淀事实、证据与失败路线。</p><small>标准 Agent · 黑板多模型 · 超级调度 · Other 多问题</small></article>
+        <article><span class="feature-index">02</span><h3>让工具执行处在明确边界内</h3><p>命令在每题独立的 Windows AppContainer 中运行，按任务控制网络、文件、基础工具、Tool Pack 与 MCP 能力，不依赖 Docker Desktop。</p><small>AppContainer · Job Object · ACL · Broker / Runner</small></article>
+        <article><span class="feature-index">03</span><h3>让全过程可见、可审、可交付</h3><p>从题面和附件开始，持续展示过程、终端、文件与 Artifact；候选 Flag 或答案由人确认，最后生成结构化中文 Writeup。</p><small>实时过程 · 人工审核 · 暂停恢复 · 中文 Writeup</small></article>
+      </div>
+    </section>
+
+    <section class="doc-section" id="updates">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">RELEASE 2.9.5</p>
+          <h2>2.8 → 2.9 新增了什么</h2>
+          <p>四项改动都指向同一个目标：把「更新怎么到位」「题目从哪来」「工具从哪装」这些原本靠人工补位的环节收进工作台内部。以下描述均以当前测试版的实际行为为准。</p>
+        </div>
+        <div class="update-grid">
+          <article class="update-card">
+            <h3><span>01</span>应用内在线更新</h3>
+            <p>入口在 <strong>设置 → 关于 → 在线更新</strong>。启动 20 秒后自动首查，此后每 6 小时检查一次，也可随时手动检查。</p>
+            <ul>
+              <li>更新清单以 Ed25519 签名，客户端内置公钥验签；<strong>验签失败一律拒绝更新</strong>，不会退化为信任未签名清单</li>
+              <li>安装包按清单声明的 SHA256 与字节数逐一校验，不匹配即删除，不留半成品</li>
+              <li>替换由独立更新进程执行：关停 daemon、备份、替换、重启，任一文件写入失败即整体回滚并保留现场快照</li>
+              <li>下载过程显示进度、速度与剩余时间；更新期间要求没有运行中的任务</li>
+            </ul>
+          </article>
+          <article class="update-card">
+            <h3><span>02</span>平台题目接入</h3>
+            <p>AI 题目管家按平台形态选择建题链路，并明确「谁负责启动靶机环境」，避免任务内 Agent 反复调用只读工具耗尽上下文。</p>
+            <ul>
+              <li>平台提供 HTTP Open API：建题时由工作台启动容器，并把访问地址写进题面</li>
+              <li>平台只提供 MCP 工具：管家在建题前调用启动工具并轮询到地址</li>
+              <li>平台容器配额满额时登记待补题，按 45 秒间隔重试最多 8 次，不再出现「第 N 题起静默不补题」</li>
+              <li>任务侧不投递破坏性工具，提交 Flag 等能力走独立通道</li>
+            </ul>
+          </article>
+          <article class="update-card">
+            <h3><span>03</span>统一对话栏双模式导入</h3>
+            <p>对话式建题与比赛 API 批量导入合并到同一条入口，由意图路由决定走哪条路径，单题与批量不再分散在两处。</p>
+            <ul>
+              <li>单题模式按对话补充题面、授权目标、Flag 格式与附件</li>
+              <li>接入比赛 API 后可批量导入题目，按本机调度容量逐题启动</li>
+              <li>附件走安全落盘与去重，不把远端内容直接当成本地路径</li>
+              <li>Flag 提交仍以人工确认为前提，不自动替操作者做授权判断</li>
+            </ul>
+          </article>
+          <article class="update-card">
+            <h3><span>04</span>工具链扩展成三条通道</h3>
+            <p>Windows 基础工具、WSL 基础工具与受管 Python 依赖彼此独立，各自拥有不同的执行位置与授权方式。</p>
+            <ul>
+              <li>WSL 基础工具在所选发行版内以独立隔离环境运行，普通任务与 Worker 按需调用</li>
+              <li>受管 Python 依赖在隔离目录构建固定版本 wheel，完全重启后原子发布，失败可回退</li>
+              <li>发布模板附带 25 项 Windows 与 19 项 WSL 示例条目，可用 AI 辅助扫描本机工具目录生成配置</li>
+              <li>基础工具检测<strong>不会</strong>下载、安装或更新任何程序</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section workflow-section" id="workflow">
+      <div class="container split-heading"><div><p class="kicker">START TO SOLVE</p><h2>从解压到 Writeup，一条完整路径</h2></div><p>工作流围绕授权边界、可见过程和人工判断设计。第一次使用先完成沙箱、许可证、模型和基础工具准备。</p></div>
+      <div class="container workflow-block"><div class="workflow-title"><span>启动流程</span><p>完整解压，不要只复制主程序</p></div><ol class="step-line">
+        <li><b>01</b><strong>解压发布包</strong><p>放到当前用户可写、路径较短的目录，保持所有 EXE、<code>defaults/</code> 与运行文件结构不变。</p></li>
+        <li><b>02</b><strong>启动工作台</strong><p>运行 <code>CTF-BTFly.exe</code>；首次 Broker 准备可能出现一次 UAC 请求。</p></li>
+        <li><b>03</b><strong>等待沙箱 Ready</strong><p>在“Windows 沙箱”查看 <code>preparing / ready / unavailable</code> 和具体诊断。</p></li>
+        <li><b>04</b><strong>配置模型与工具</strong><p>导入许可证，检测至少一个模型；按需选择基础工具、Tool Pack 和 MCP。</p></li>
+      </ol></div>
+      <div class="container workflow-block solve-block"><div class="workflow-title"><span>做题流程</span><p>候选结果必须经过人的确认</p></div><ol class="step-line">
+        <li><b>01</b><strong>创建题目</strong><p>填写题面、授权范围、目标、Flag 格式，添加附件并选择网络范围。</p></li>
+        <li><b>02</b><strong>选择模式</strong><p>快速主线用标准模式；需要分工用黑板；复杂路线用超级模式。</p></li>
+        <li><b>03</b><strong>观察与干预</strong><p>在过程、终端、文件与黑板中查看证据；可暂停、补充线索、切换模型或重试。</p></li>
+        <li><b>04</b><strong>审核并交付</strong><p>人工确认 Flag 或答案后，生成中文 <code>WRITEUP.md</code> 和关键 Artifact。</p></li>
+      </ol></div>
+    </section>
+
+    <section class="section modes-section" id="modes">
+      <div class="container split-heading"><div><p class="kicker">COLLABORATION</p><h2>题目不同，协作方式也不同</h2></div><p>从单主线到多模型调度，模式决定 Agent 如何协作，不替代操作者的授权判断与最终复核。</p></div>
+      <div class="container mode-layout">
+        <button class="product-shot" type="button" data-lightbox-src="assets/v279-super-real.png"><img src="assets/v279-super-real.png" alt="CTF-BTFly 超级模式确认界面真实 GUI 截图" width="1040" height="650" /><span>真实 GUI · 超级模式启动确认</span></button>
+        <div class="mode-list">
+          <article><b>01</b><div><h3>标准 Agent</h3><p>一个主 Agent 沿单条上下文推进，适合目标清晰、需要快速验证的题目。</p></div><span>FOCUSED</span></article>
+          <article class="active"><b>02</b><div><h3>黑板多模型</h3><p>Coordinator 与 Worker 使用独立会话，共享工作项、事实、证据和失败路线。</p></div><span>SHARED</span></article>
+          <article><b>03</b><div><h3>超级模式</h3><p>主模型负责拆解和统一证据，Worker 按需执行命令、联网、工具调用与候选验证。</p></div><span>ORCHESTRATED</span></article>
+          <article><b>04</b><div><h3>Other 多问题</h3><p>多个原始问题分别追踪答案、审核状态和逐题 WP，不把部分成功误判为整题完成。</p></div><span>MULTI ANSWER</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tools-section" id="tools">
+      <div class="container split-heading"><div><p class="kicker">TOOLS & EXTENSIONS</p><h2>工具可扩展，边界不打折</h2></div><p>Windows 基础工具、WSL 基础工具、受管 Python 依赖、Tool Pack 与 MCP 是五条独立能力通道。任务只获得启动时冻结并授权的能力集合。</p></div>
+      <div class="container tools-layout">
+        <div class="tool-copy">
+          <article><span>01</span><div><h3>Windows 基础工具</h3><p>通过用户选择的 Windows 目录与 JSON 动态检测；在 AppContainer 中只读、可执行。</p></div></article>
+          <article><span>02</span><div><h3>WSL 基础工具</h3><p>选择发行版、Linux 目录与 JSON，在发行版内的隔离环境中按需调用；应用不安装软件、不初始化 WSL。</p></div></article>
+          <article><span>03</span><div><h3>受管 Python 依赖</h3><p>声明精确版本后隔离构建 wheel，重启时原子发布；构建失败可回退到发行默认。</p></div></article>
+          <article><span>04</span><div><h3>Tool Pack</h3><p>绑定精确的 <code>id / version / digest</code>，校验和授权成功后才对后续任务可见。</p></div></article>
+          <article><span>05</span><div><h3>MCP Server</h3><p>经 daemon 网关按任务令牌、题型与策略过滤，并记录工具调用审计。</p></div></article>
+        </div>
+        <button class="product-shot tools-shot" type="button" data-lightbox-src="assets/v279-tools-real.png"><img src="assets/v279-tools-real.png" alt="CTF-BTFly 基础工具设置真实 GUI 截图，本机路径已脱敏" width="1620" height="1140" /><span>真实 GUI · 本机路径已脱敏</span></button>
+      </div>
+      <div class="container capability-line" aria-label="功能能力"><span>附件与 Artifact</span><span>实时过程与终端</span><span>工作区文件</span><span>Flag / 答案审核</span><span>中文 Writeup</span><span>模型用量统计</span><span>暂停与继续</span><span>切换模型与重试</span></div>
+    </section>
+
+    <section class="section compare-section" id="compare">
+      <div class="container split-heading"><div><p class="kicker">VERSION COMPARISON</p><h2>三代方案，重点差异一次看清</h2></div><p><code>1.3.1</code> 的口径依据原版本功能定位与维护说明；历史 Docker 版仅用于迁移对照，不代表当前推荐架构。</p></div>
+      <div class="container table-wrap"><table>
+        <thead><tr><th scope="col">能力</th><th scope="col">1.3.1 开源版</th><th scope="col">历史 Docker 版</th><th scope="col" class="current">2.9.5 Windows 原生版</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">定位</th><td>开源，具备基本功能</td><td>桌面端 + Docker 容器工作流</td><td class="current"><strong>当前最新测试版</strong></td></tr>
+          <tr><th scope="row">运行依赖</th><td>早期基础运行方案</td><td>需要 Docker Desktop / Engine</td><td class="current">Windows 10 22H2 / 11 x64，无需 Docker 或 WSL</td></tr>
+          <tr><th scope="row">隔离方式</th><td>基础能力</td><td>每题 Docker 容器</td><td class="current">AppContainer + Job Object + ACL + Broker / Runner</td></tr>
+          <tr><th scope="row">镜像一键导入</th><td><span class="no">没有</span></td><td><span class="yes">支持 TAR 一键导入</span></td><td class="current">不需要容器镜像；使用基础工具、Tool Pack 与 MCP</td></tr>
+          <tr><th scope="row">黑板模式</th><td><span class="no">没有</span></td><td><span class="yes">支持</span></td><td class="current"><span class="yes">支持多模型黑板与独立会话</span></td></tr>
+          <tr><th scope="row">超级 / Other</th><td>无</td><td>以标准与黑板为主</td><td class="current">超级调度、按需 Worker、Other 多答案</td></tr>
+          <tr><th scope="row">工具链扩展</th><td>基础功能</td><td>六类专项镜像、MCP、本机插件</td><td class="current">Windows / WSL / 受管 Python / Tool Pack / MCP 五路并行</td></tr>
+          <tr><th scope="row">在线更新</th><td><span class="no">没有</span></td><td><span class="no">没有</span></td><td class="current">签名清单校验、一键更新并重启、失败自动回滚</td></tr>
+          <tr><th scope="row">平台题目接入</th><td><span class="no">没有</span></td><td>人工建题</td><td class="current">平台 API 与 MCP 双链路，容器满额自动排队重试</td></tr>
+          <tr><th scope="row">恢复与人工边界</th><td>基础流程</td><td>容器暂停恢复与 Flag 审核</td><td class="current">daemon 对账恢复、暂停继续、切换模型、候选人工确认</td></tr>
+        </tbody>
+      </table></div>
+      <div class="container compare-notes"><p><strong>从 Docker 版迁移：</strong>不再维护六类镜像，也没有镜像 TAR 导入入口；工具能力改由基础工具、受管 Python、Tool Pack 和 MCP 组合提供。</p><p><strong>从 1.3.1 升级认知：</strong>2.9.5 不只是补齐黑板，而是加入原生沙箱、多级调度、工具权限、过程审计、恢复、多答案闭环与在线更新。</p></div>
+    </section>
+
+    <section class="section security-section" id="security"><div class="container security-layout">
+      <div class="security-lead"><p class="kicker">WINDOWS NATIVE SANDBOX</p><h2>不是把命令藏起来，<br />而是把执行边界做清楚</h2><p>daemon 负责本地控制平面，Broker 负责受控提权与权限准备，Runner 在每题独立 AppContainer Profile 中启动受信 Pi。</p></div>
+      <div class="security-points">
+        <article><span>01</span><h3>每题独立身份与进程树</h3><p>Profile SID、工作区、控制目录、命名管道与 Job Object 随任务创建。</p></article>
+        <article><span>02</span><h3>工具只读挂载</h3><p>共享运行时与基础工具仅授予读取/执行；Tool Pack 权限绑定精确内容摘要。</p></article>
+        <article><span>03</span><h3>短期任务令牌</h3><p>模型与 MCP 访问经过 daemon relay，令牌绑定任务并限制调用范围。</p></article>
+        <article><span>04</span><h3>失败保留现场</h3><p>无法证明一致性的在途状态进入暂停或 <code>recovery_required</code>，不会静默标记完成。</p></article>
+      </div>
+    </div></section>
+
+    <section class="doc-section alt">
+      <div class="container">
+        <div class="doc-head">
+          <p class="kicker">NEXT STEP</p>
+          <h2>接下来</h2>
+        </div>
+        <div class="cta-cards">
+          <a class="cta-card" href="license.html">
+            <small>AUTHORIZATION</small>
+            <h3>完成设备授权</h3>
+            <p>软件需要一份绑定本机的离线许可证才能进入工作台。三步流程与失败对照都在授权页。</p>
+            <span class="arrow">查看激活教程 →</span>
+          </a>
+          <a class="cta-card" href="faq.html">
+            <small>FAQ</small>
+            <h3>遇到问题先看问答</h3>
+            <p>安装、授权、模型、沙箱、在线更新与数据隐私六组常见问题，支持按条直链分享。</p>
+            <span class="arrow">查看常见问题 →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="index.html"><img src="assets/cpi-icon.png" alt="" width="32" height="32" /><span><strong>CTF-BTFly</strong><small>Authorized security research only</small></span></a><p>© 2026 CTF-BTFly · v2.9.5 · 产品截图为 2.7.9 实机运行界面，敏感信息已脱敏。</p></div></footer>
+  <dialog class="lightbox" data-lightbox><button type="button" data-lightbox-close aria-label="关闭图片预览">×</button><img src="" alt="CTF-BTFly 真实产品界面大图" /><p>真实 GUI 截图 · 敏感信息已脱敏</p></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
